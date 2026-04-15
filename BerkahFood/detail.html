@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daftar Menu | Berkah Food</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: #FCF4E6;
+      color: #342c27;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgba(252, 244, 230, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 16px 5%;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-logo img {
+      height: 44px;
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-logo:hover img {
+      transform: scale(1.05);
+    }
+
+    .navbar-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .btn-back {
+      background-color: #f1c40f;
+      /* bright yellow */
+      color: #342c27 !important;
+      padding: 10px 24px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      box-shadow: 0 6px 15px rgba(241, 196, 15, 0.3);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .btn-back:hover {
+      background-color: #f39c12;
+      /* darker yellow/orange */
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(243, 156, 18, 0.4);
+    }
+
+
+
+    .nav-spacer {
+      height: 80px;
+    }
+
+    /* --- EFEK ZOOM & SHADOW UNTUK GRID MENU --- */
+    .menu-title {
+      text-align: center;
+      font-size: 38px;
+      font-weight: 700;
+      margin-bottom: 50px;
+      color: #2c2420;
+    }
+
+    .grid-all-menu {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 50px 25px;
+    }
+
+    .menu-item-all {
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .menu-item-all img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      margin-bottom: 15px;
+      /* Transisi halus untuk zoom dan shadow */
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.4s ease;
+    }
+
+    /* Efek saat menu di-hover di halaman list */
+    .menu-item-all:hover img {
+      transform: scale(1.15);
+      /* Ngezoom lebih besar */
+      filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.15));
+      /* Bayangan lembut di belakang gambar */
+    }
+
+    .menu-item-all h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0;
+      color: #000;
+      transition: color 0.3s ease;
+    }
+
+    .menu-item-all:hover h3 {
+      color: #E67E22;
+    }
+
+    /* --- EFEK ZOOM & SHADOW UNTUK KARTU DETAIL --- */
+    .detail-card {
+      background: white;
+      border-radius: 24px;
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .detail-card img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 18px;
+      margin-bottom: 25px;
+      /* Bayangan dasar */
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      /* Transisi zoom */
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      cursor: zoom-in;
+    }
+
+    /* Efek Ngezoom saat gambar detail disentuh/dihover */
+    .detail-card img:hover {
+      transform: scale(1.05);
+      /* Zoom sedikit agar elegan */
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
+      /* Bayangan jadi lebih dalam/gelap */
+    }
+
+    .price {
+      color: #E67E22;
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .section {
+      margin-top: 25px;
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+    }
+
+    .addons label {
+      display: flex;
+      justify-content: space-between;
+      margin: 12px 0;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .qty {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 20px;
+      background: #f9f9f9;
+      width: fit-content;
+      padding: 8px 15px;
+      border-radius: 12px;
+    }
+
+    .qty button {
+      width: 35px;
+      height: 35px;
+      border: none;
+      background: #E67E22;
+      color: white;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .btn-wa {
+      width: 100%;
+      margin-top: 25px;
+      padding: 18px;
+      border: none;
+      border-radius: 14px;
+      background: #E67E22;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(230, 126, 34, 0.2);
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn-wa:hover {
+      background: #d35400;
+      transform: translateY(-2px);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #E67E22;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .grid-all-menu {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px 15px;
+      }
+
+      .navbar-links {
+        display: none;
+      }
+
+      .cart-panel {
+        width: 100%;
+      }
+    }
+
+    /* ===== CART STYLES ===== */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100%);
+      }
+
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideOutRight {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(100%);
+      }
+    }
+
+    @keyframes itemSlideIn {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes itemSlideOut {
+      from {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+    }
+
+    @keyframes badgeBounce {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      30% {
+        transform: scale(1.5);
+      }
+
+      60% {
+        transform: scale(0.9);
+      }
+    }
+
+    @keyframes cartBtnPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 8px 25px rgba(230, 126, 34, 0.4);
+      }
+
+      50% {
+        box-shadow: 0 8px 35px rgba(230, 126, 34, 0.7);
+      }
+    }
+
+    .cart-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 200;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: #E67E22;
+      color: white;
+      border: none;
+      font-size: 26px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 25px rgba(230, 126, 34, 0.4);
+      animation: cartBtnPulse 2.5s infinite;
+      transition: transform 0.2s;
+    }
+
+    .cart-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #e74c3c;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      display: none;
+    }
+
+    .cart-badge.show {
+      display: flex;
+      animation: badgeBounce 0.5s ease;
+    }
+
+    .cart-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 300;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .cart-overlay.open {
+      display: block;
+    }
+
+    .cart-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 400px;
+      background: white;
+      z-index: 400;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.12);
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .cart-panel.open {
+      transform: translateX(0);
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 2px solid #FCF4E6;
+      background: #FCF4E6;
+    }
+
+    .cart-header h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .cart-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #342c27;
+      line-height: 1;
+      transition: transform 0.2s;
+    }
+
+    .cart-close:hover {
+      transform: rotate(90deg);
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 24px;
+    }
+
+    .cart-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #aaa;
+    }
+
+    .cart-empty span {
+      font-size: 50px;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+      animation: itemSlideIn 0.35s ease forwards;
+    }
+
+    .cart-item img {
+      width: 65px;
+      height: 65px;
+      object-fit: cover;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-name {
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .cart-item-sub {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 6px;
+    }
+
+    .cart-item-price {
+      font-weight: 700;
+      color: #E67E22;
+      font-size: 15px;
+    }
+
+    .cart-item-remove {
+      background: #fff0f0;
+      border: none;
+      color: #e74c3c;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .cart-item-remove:hover {
+      background: #e74c3c;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .cart-footer {
+      padding: 20px 24px;
+      border-top: 2px solid #FCF4E6;
+      background: white;
+    }
+
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: #342c27;
+    }
+
+    .cart-checkout {
+      width: 100%;
+      padding: 16px;
+      background: #25D366;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .cart-checkout:hover {
+      background: #1db954;
+      transform: translateY(-2px);
+    }
+
+    .cart-clear {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background: none;
+      border: 1.5px solid #eee;
+      border-radius: 10px;
+      font-size: 13px;
+      color: #999;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .cart-clear:hover {
+      border-color: #e74c3c;
+      color: #e74c3c;
+    }
+
+    .btn-add-cart {
+      width: 100%;
+      margin-top: 12px;
+      padding: 18px;
+      border: none;
+      border-radius: 14px;
+      background: #E67E22;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(230, 126, 34, 0.2);
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn-add-cart:hover {
+      background: #d35400;
+      transform: translateY(-2px);
+    }
+
+    .btn-add-cart:active {
+      transform: scale(0.97);
+    }
+
+    /* ===== FLY TO CART ANIMATION ===== */
+    .fly-img {
+      position: fixed;
+      z-index: 9999;
+      border-radius: 50%;
+      object-fit: cover;
+      pointer-events: none;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      transition:
+        top 0.75s cubic-bezier(0.4, 0, 0.2, 1),
+        left 0.75s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.75s cubic-bezier(0.4, 0, 0.2, 1),
+        height 0.75s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.75s ease;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+
+    <a href="./index.html" class="navbar-logo">
+      <img src="./src/styles/asset/font/image/logo.png" alt="Logo BerkahFood">
+    </a>
+    <div class="navbar-links">
+      <a href="./index.html" id="nav-back-btn" class="btn-back">← Kembali</a>
+    </div>
+  </nav>
+  <div class="nav-spacer"></div>
+
+  <!-- Floating Cart Button -->
+  <button id="cart-btn-el" class="cart-btn" onclick="toggleCart()" title="Keranjang">
+    🛒
+    <span class="cart-badge" id="cart-badge">0</span>
+  </button>
+
+  <!-- Toast Overlay -->
+  <!-- Cart Overlay -->
+  <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+  <!-- Cart Side Panel -->
+  <div class="cart-panel" id="cart-panel">
+    <div class="cart-header">
+      <h2>🛒 Keranjang Saya</h2>
+      <button class="cart-close" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer" id="cart-footer" style="display:none;">
+      <div class="cart-total-row">
+        <span>Total</span>
+        <span id="cart-total">Rp 0</span>
+      </div>
+      <button class="cart-checkout" onclick="checkoutWA()">Pesan via WhatsApp 💬</button>
+      <button class="cart-clear" onclick="clearCart()">Hapus Semua</button>
+    </div>
+  </div>
+
+  <div class="container" id="main-content"></div>
+
+  <script>
+    const menuData = {
+      'nasi-kuning-klasik': { nama: 'Nasi Kuning Klasik', harga: 20000, gambar: './src/styles/asset/font/image/bg2.png', deskripsi: 'Nasi kuning tradisional dengan lauk klasik pilihan.' },
+      'nasi-kuning-ayam': { nama: 'Nasi Kuning Ayam', harga: 20000, gambar: './src/styles/asset/font/image/bg9.png', deskripsi: 'Nasi kuning gurih dengan ayam goreng pilihan.' },
+      'nasi-kuning-rendang': { nama: 'Nasi Kuning Rendang', harga: 25000, gambar: './src/styles/asset/font/image/bg10.png', deskripsi: 'Nasi kuning wangi dengan rendang daging sapi empuk.' },
+      'nasi-kuning-campur': { nama: 'Nasi Kuning Campur', harga: 22000, gambar: './src/styles/asset/font/image/bg11.png', deskripsi: 'Sajian lengkap dengan berbagai macam lauk pauk.' },
+      'nasi-kuning-ati-ampela': { nama: 'Nasi Kuning Ati Ampela', harga: 18000, gambar: './src/styles/asset/font/image/bg15.png', deskripsi: 'Nasi kuning nikmat dengan tambahan ati ampela.' },
+      'nasi-kuning-udang': { nama: 'Nasi Kuning Udang', harga: 28000, gambar: './src/styles/asset/font/image/bg12.png', deskripsi: 'Nasi kuning dengan udang goreng tepung/balado.' },
+      'nasi-kuning-cumi-hitam': { nama: 'Nasi Kuning Cumi Hitam', harga: 26000, gambar: './src/styles/asset/font/image/bg14.png', deskripsi: 'Nasi kuning dipadukan dengan cumi masak tinta hitam.' },
+      'nasi-kuning-ayam-bali': { nama: 'Nasi Kuning Ayam Bali', harga: 24000, gambar: './src/styles/asset/font/image/bg13.png', deskripsi: 'Nasi kuning dengan ayam bumbu Bali rempah.' }
+    };
+
+    // ===== CART LOGIC =====
+    function getCart() { return JSON.parse(localStorage.getItem('berkahfood_cart') || '[]'); }
+    function saveCart(cart) { localStorage.setItem('berkahfood_cart', JSON.stringify(cart)); }
+
+    function updateBadge() {
+      const cart = getCart();
+      const badge = document.getElementById('cart-badge');
+      const total = cart.reduce((s, i) => s + i.qty, 0);
+      badge.innerText = total;
+      if (total > 0) { badge.classList.add('show'); }
+      else { badge.classList.remove('show'); }
+    }
+
+    function flyToCart(imgSrc) {
+      const cartBtn = document.getElementById('cart-btn-el');
+      const cartRect = cartBtn.getBoundingClientRect();
+
+      // Start from center of screen
+      const startSize = 130;
+      const startLeft = window.innerWidth / 2 - startSize / 2;
+      const startTop = window.innerHeight / 2 - startSize / 2;
+
+      const img = document.createElement('img');
+      img.src = imgSrc;
+      img.className = 'fly-img';
+      img.style.width = startSize + 'px';
+      img.style.height = startSize + 'px';
+      img.style.left = startLeft + 'px';
+      img.style.top = startTop + 'px';
+      img.style.opacity = '1';
+      document.body.appendChild(img);
+
+      // Short pause then fly to cart
+      setTimeout(() => {
+        const endSize = 50;
+        img.style.width = endSize + 'px';
+        img.style.height = endSize + 'px';
+        img.style.left = (cartRect.left + cartRect.width / 2 - endSize / 2) + 'px';
+        img.style.top = (cartRect.top + cartRect.height / 2 - endSize / 2) + 'px';
+        img.style.opacity = '0';
+      }, 80);
+
+      // After fly completes, bounce cart button + redirect
+      setTimeout(() => {
+        cartBtn.style.transform = 'scale(1.4)';
+        setTimeout(() => { cartBtn.style.transform = ''; }, 200);
+        img.remove();
+      }, 860);
+
+      // Redirect after animation
+      setTimeout(() => {
+        window.location.href = '?menu=all';
+      }, 1100);
+    }
+
+    function addToCart() {
+      const namaEl = document.getElementById('nama-display');
+      if (!namaEl) return;
+      const nama = namaEl.innerText;
+      const menu = Object.values(menuData).find(m => m.nama === nama);
+      if (!menu) return;
+
+      let totalAddons = 0;
+      let addonsLabel = [];
+      document.querySelectorAll('.addon-cb:checked').forEach(cb => {
+        totalAddons += parseInt(cb.value);
+        addonsLabel.push(cb.parentElement.innerText.split('+')[0].trim());
+      });
+
+      const hargaSatuan = (menu.harga + totalAddons);
+      const cart = getCart();
+      const id = Date.now();
+      cart.push({
+        id,
+        nama: menu.nama,
+        gambar: menu.gambar,
+        qty,
+        hargaSatuan,
+        addons: addonsLabel
+      });
+      saveCart(cart);
+      updateBadge();
+
+      // Fly-to-cart animation with the menu photo
+      flyToCart(menu.gambar);
+    }
+
+    function removeFromCart(id) {
+      const cart = getCart();
+      const idx = cart.findIndex(i => i.id === id);
+      if (idx === -1) return;
+      // Animate out
+      const el = document.getElementById('cart-item-' + id);
+      if (el) {
+        el.style.animation = 'itemSlideOut 0.3s ease forwards';
+        setTimeout(() => {
+          cart.splice(idx, 1);
+          saveCart(cart);
+          updateBadge();
+          renderCart();
+        }, 300);
+      } else {
+        cart.splice(idx, 1);
+        saveCart(cart);
+        updateBadge();
+        renderCart();
+      }
+    }
+
+    function clearCart() {
+      localStorage.removeItem('berkahfood_cart');
+      updateBadge();
+      renderCart();
+    }
+
+    function renderCart() {
+      const cart = getCart();
+      const container = document.getElementById('cart-items');
+      const footer = document.getElementById('cart-footer');
+
+      if (cart.length === 0) {
+        container.innerHTML = `<div class="cart-empty"><span>🍽️</span><p>Keranjangmu masih kosong.<br>Yuk tambah menu!</p></div>`;
+        footer.style.display = 'none';
+        return;
+      }
+
+      footer.style.display = 'block';
+      let grandTotal = 0;
+      container.innerHTML = cart.map(item => {
+        const sub = item.hargaSatuan * item.qty;
+        grandTotal += sub;
+        const addonsText = item.addons.length ? item.addons.join(', ') : 'Tanpa tambahan';
+        return `
+          <div class="cart-item" id="cart-item-${item.id}">
+            <img src="${item.gambar}" alt="${item.nama}">
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.nama}</div>
+              <div class="cart-item-sub">Lauk Tambahan: ${addonsText}</div>
+              <div class="cart-item-sub">Jumlah: ${item.qty}x</div>
+              <div class="cart-item-price">Rp ${sub.toLocaleString('id-ID')}</div>
+            </div>
+            <button class="cart-item-remove" onclick="removeFromCart(${item.id})">🗑</button>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('cart-total').innerText = 'Rp ' + grandTotal.toLocaleString('id-ID');
+    }
+
+    function toggleCart() {
+      const panel = document.getElementById('cart-panel');
+      const overlay = document.getElementById('cart-overlay');
+      const isOpen = panel.classList.contains('open');
+      if (isOpen) {
+        panel.classList.remove('open');
+        overlay.classList.remove('open');
+      } else {
+        renderCart();
+        panel.classList.add('open');
+        overlay.classList.add('open');
+      }
+    }
+
+    function checkoutWA() {
+      const cart = getCart();
+      if (cart.length === 0) return;
+      let pesan = '*PESANAN BERKAH FOOD*%0A%0A';
+      let grandTotal = 0;
+      cart.forEach((item, i) => {
+        const sub = item.hargaSatuan * item.qty;
+        grandTotal += sub;
+        pesan += `${i + 1}. *${item.nama}* x${item.qty}%0A`;
+        if (item.addons.length) pesan += `   Lauk: ${item.addons.join(', ')}%0A`;
+        pesan += `   Subtotal: Rp ${sub.toLocaleString('id-ID')}%0A%0A`;
+      });
+      pesan += `*TOTAL: Rp ${grandTotal.toLocaleString('id-ID')}*`;
+      window.open(`https://wa.me/6281237394223?text=${pesan}`, '_blank');
+    }
+
+    // ===== MENU DISPLAY =====
+    function getURLParameter(name) { return new URLSearchParams(window.location.search).get(name); }
+
+    function showAllMenus() {
+      const btnBack = document.getElementById('nav-back-btn');
+      if (btnBack) {
+        btnBack.href = './index.html';
+        btnBack.innerText = '← Kembali ke Beranda';
+        btnBack.style.display = 'block';
+      }
+      const content = document.getElementById('main-content');
+      let html = `<h1 class="menu-title">Pilihan Menu</h1><div class="grid-all-menu">`;
+      Object.keys(menuData).forEach(key => {
+        const menu = menuData[key];
+        let priceText = `Rp ${menu.harga.toLocaleString('id-ID')}`;
+        html += `<div class="menu-item-all" onclick="window.location.href='?menu=${key}'">
+            <img src="${menu.gambar}" alt="${menu.nama}">
+            <h3>${menu.nama}</h3>
+            <div style="font-weight:700; color:#E67E22; margin-top:5px; font-size:14px;">${priceText}</div>
+          </div>`;
+      });
+      html += `</div>`;
+      content.innerHTML = html;
+    }
+
+    let hargaDasar = 0;
+    let qty = 1;
+
+    function showMenuDetail(key) {
+      const menu = menuData[key];
+      if (!menu) return showAllMenus();
+      hargaDasar = menu.harga;
+      qty = 1;
+
+      const btnBack = document.getElementById('nav-back-btn');
+      if (btnBack) {
+        btnBack.href = '?menu=all';
+        btnBack.innerText = '← Semua Menu';
+      }
+
+      const content = document.getElementById('main-content');
+      content.innerHTML = `
+        <div class="detail-card">
+          <img src="${menu.gambar}" alt="${menu.nama}">
+          <h1 id="nama-display">${menu.nama}</h1>
+          <div class="price">Rp ${menu.harga.toLocaleString('id-ID')}</div>
+          <p class="desc">${menu.deskripsi}</p>
+          <div class="section">
+            <b>Tambah Lauk Ekstra</b>
+            <div class="addons">
+              <label><span><input type="checkbox" value="5000" class="addon-cb" onchange="updateTotal()"> Uritan</span><span>+5.000</span></label>
+              <label><span><input type="checkbox" value="5000" class="addon-cb" onchange="updateTotal()"> Ampela Ati</span><span>+5.000</span></label>
+              <label><span><input type="checkbox" value="4000" class="addon-cb" onchange="updateTotal()"> Telur</span><span>+4.000</span></label>
+              <label><span><input type="checkbox" value="2000" class="addon-cb" onchange="updateTotal()"> Tempe/Tahu</span><span>+2.000</span></label>
+            </div>
+          </div>
+          <div class="qty">
+            <button onclick="ubahQty(-1)">-</button>
+            <span id="qty-val" style="font-weight:700; font-size:18px;">1</span>
+            <button onclick="ubahQty(1)">+</button>
+          </div>
+          <div class="total" id="total-display" style="margin-top:15px; font-weight:800; font-size:20px;">Total: Rp ${menu.harga.toLocaleString('id-ID')}</div>
+          <button class="btn-add-cart" onclick="addToCart()">🛒 Tambah ke Keranjang</button>
+        </div>`;
+    }
+
+    function ubahQty(val) { qty = Math.max(1, qty + val); updateTotal(); }
+    function updateTotal() {
+      let totalAddons = 0;
+      document.querySelectorAll('.addon-cb:checked').forEach(cb => totalAddons += parseInt(cb.value));
+      const totalAkhir = (hargaDasar + totalAddons) * qty;
+      document.getElementById('qty-val').innerText = qty;
+      document.getElementById('total-display').innerText = 'Total: Rp ' + totalAkhir.toLocaleString('id-ID');
+    }
+
+    window.onload = function () {
+      const menuParam = getURLParameter('menu');
+      if (menuParam === 'all') showAllMenus();
+      else showMenuDetail(menuParam || 'nasi-kuning-ayam');
+      updateBadge();
+    };
+  </script>
+</body>
+
+</html>

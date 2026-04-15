@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Custom Paket Tumpeng | Berkah Food</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #E67E22;
+      --primary-dark: #D35400;
+      --bg: #FCF4E6;
+      --text: #342c27;
+      --card-bg: #ffffff;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(52, 44, 39, 0.1);
+    }
+
+    .header-img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 18px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 28px;
+      margin: 0 0 10px;
+      font-weight: 700;
+      color: #2c2420;
+    }
+
+    .main-desc {
+      font-size: 15px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .section {
+      margin-top: 25px;
+    }
+
+    .section-title {
+      display: block;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    /* Custom Radio & Checkbox Cards */
+    .option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border-radius: 14px;
+      border: 2px solid #f0f0f0;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .option:hover {
+      border-color: #eee;
+      background: #fafafa;
+    }
+
+    /* Logic warna saat terpilih */
+    input[type="radio"]:checked+.option-content,
+    input[type="checkbox"]:checked+.option-content {
+      color: var(--primary);
+    }
+
+    /* Hilangkan input asli tapi tetap fungsional */
+    .option input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      margin-right: 12px;
+    }
+
+    .selected-border {
+      border-color: var(--primary) !important;
+      background: #fff9f4 !important;
+    }
+
+    /* Quantity Control */
+    .qty-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8f8f8;
+      padding: 10px 20px;
+      border-radius: 14px;
+      margin-top: 10px;
+    }
+
+    .qty-btns {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .qty-btns button {
+      width: 38px;
+      height: 38px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    .qty-btns button:active {
+      transform: scale(0.9);
+    }
+
+    #qty {
+      font-weight: 700;
+      font-size: 18px;
+      min-width: 25px;
+      text-align: center;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 15px;
+      border-radius: 14px;
+      border: 2px solid #f0f0f0;
+      font-family: inherit;
+      resize: none;
+      box-sizing: border-box;
+      margin-top: 8px;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    /* Total Section */
+    .footer-section {
+      margin-top: 35px;
+      padding-top: 20px;
+      border-top: 2px dashed #eee;
+    }
+
+    .total-label {
+      font-size: 14px;
+      color: #888;
+      display: block;
+    }
+
+    .total-amount {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .btn-order {
+      width: 100%;
+      padding: 18px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 16px;
+      margin-top: 20px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(230, 126, 34, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    .btn-order:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .badge-price {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .pax-info {
+      font-size: 12px;
+      color: #999;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="card">
+
+      <img src="./src/styles/asset/font/image/bg3.png" class="header-img" alt="Paket Tumpeng Premium">
+
+      <h1>Hadirkan Tradisi di Acara Spesial</h1>
+      <p class="main-desc">Nasi kuning tumpeng autentik Berkah Food dengan rempah pilihan. Cocok untuk syukuran, ulang
+        tahun, hingga peresmian kantor.</p>
+
+      <div class="section">
+        <b class="section-title">1. Pilih Ukuran & Porsi</b>
+
+        <label class="option selected-border">
+          <span>
+            <input type="radio" name="size" data-pax="5" value="150000" checked onchange="handleSelect(this)">
+            <b>Paket Mini</b>
+            <span class="pax-info">Ideal untuk 5 Orang</span>
+          </span>
+          <span class="badge-price">Rp 150.000</span>
+        </label>
+
+        <label class="option">
+          <span>
+            <input type="radio" name="size" data-pax="10" value="250000" onchange="handleSelect(this)">
+            <b>Paket Medium</b>
+            <span class="pax-info">Ideal untuk 10 Orang</span>
+          </span>
+          <span class="badge-price">Rp 250.000</span>
+        </label>
+
+        <label class="option">
+          <span>
+            <input type="radio" name="size" data-pax="20" value="400000" onchange="handleSelect(this)">
+            <b>Paket Besar</b>
+            <span class="pax-info">Ideal untuk 20 Orang</span>
+          </span>
+          <span class="badge-price">Rp 400.000</span>
+        </label>
+      </div>
+
+      <div class="section">
+        <b class="section-title">2. Tambah Lauk Spesial (Per Orang)</b>
+        <p class="pax-info" style="margin-bottom: 10px;">Harga lauk akan dikalikan dengan jumlah porsi paket yang
+          dipilih.</p>
+
+        <label class="option">
+          <span>
+            <input type="checkbox" value="5000" onchange="handleCheckbox(this)">
+            <b>Ayam Goreng Serundeng</b>
+          </span>
+          <span class="badge-price">+5rb/org</span>
+        </label>
+
+        <label class="option">
+          <span>
+            <input type="checkbox" value="8000" onchange="handleCheckbox(this)">
+            <b>Rendang Daging Sapi</b>
+          </span>
+          <span class="badge-price">+8rb/org</span>
+        </label>
+
+        <label class="option">
+          <span>
+            <input type="checkbox" value="4000" onchange="handleCheckbox(this)">
+            <b>Sambal Goreng Uritan</b>
+          </span>
+          <span class="badge-price">+4rb/org</span>
+        </label>
+      </div>
+
+      <div class="section">
+        <b class="section-title">3. Jumlah Pesanan</b>
+        <div class="qty-wrapper">
+          <span>Berapa tumpeng?</span>
+          <div class="qty-btns">
+            <button onclick="kurang()">-</button>
+            <span id="qty">1</span>
+            <button onclick="tambah()">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <b class="section-title">Catatan Tambahan</b>
+        <textarea id="note" rows="3"
+          placeholder="Contoh: Ucapan di tumpeng, request tingkat kepedasan, atau jam pengiriman..."></textarea>
+      </div>
+
+      <div class="footer-section">
+        <span class="total-label">Total Pembayaran:</span>
+        <div class="total-amount" id="total">Rp 150.000</div>
+
+        <button class="btn-order" onclick="orderWA()">
+          Pesan via WhatsApp Sekarang
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let qty = 1;
+
+    // Fungsi visual agar kotak pilihan berubah warna
+    function handleSelect(el) {
+      document.querySelectorAll('input[name="size"]').forEach(radio => {
+        radio.parentElement.parentElement.classList.remove('selected-border');
+      });
+      el.parentElement.parentElement.classList.add('selected-border');
+      update();
+    }
+
+    function handleCheckbox(el) {
+      if (el.checked) {
+        el.parentElement.parentElement.classList.add('selected-border');
+      } else {
+        el.parentElement.parentElement.classList.remove('selected-border');
+      }
+      update();
+    }
+
+    function tambah() { qty++; update(); }
+    function kurang() { if (qty > 1) { qty--; update(); } }
+
+    function update() {
+      let sizeInput = document.querySelector("input[name=size]:checked");
+      let sizePrice = parseInt(sizeInput.value);
+      let paxCount = parseInt(sizeInput.getAttribute("data-pax"));
+      let addons = document.querySelectorAll("input[type=checkbox]:checked");
+
+      let totalAddon = 0;
+      addons.forEach(a => totalAddon += parseInt(a.value) * paxCount);
+
+      let grandTotal = (sizePrice + totalAddon) * qty;
+
+      document.getElementById("qty").innerText = qty;
+      document.getElementById("total").innerText = "Rp " + grandTotal.toLocaleString('id-ID');
+    }
+
+    function orderWA() {
+      let sizeLabel = document.querySelector("input[name=size]:checked").parentElement.querySelector('b').innerText;
+      let paxCount = document.querySelector("input[name=size]:checked").getAttribute("data-pax");
+
+      let addons = [];
+      document.querySelectorAll("input[type=checkbox]:checked").forEach(a => {
+        addons.push(a.parentElement.querySelector('b').innerText);
+      });
+
+      let pesan = "*PESANAN TUMPENG - BERKAH FOOD*%0A%0A";
+      pesan += `*Paket:* ${sizeLabel} (${paxCount} Orang)%0A`;
+      pesan += `*Jumlah Tumpeng:* ${qty}%0A`;
+
+      if (addons.length > 0) {
+        pesan += `*Tambahan Lauk:* ${addons.join(", ")}%0A`;
+      }
+
+      let note = document.getElementById("note").value;
+      if (note) {
+        pesan += `*Catatan:* ${note}%0A`;
+      }
+
+      pesan += `%0A*TOTAL TAGIHAN:* ${document.getElementById("total").innerText}`;
+
+      const nomorWA = "6281237394223";
+      window.open(`https://wa.me/${nomorWA}?text=${pesan}`, "_blank");
+    }
+  </script>
+
+</body>
+
+</html>
