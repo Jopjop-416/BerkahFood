@@ -1,0 +1,455 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tradisi Rasa Nasi Kuning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+      @font-face {
+        font-family: "Gazpacho";
+        src: url("./src/styles/asset/font/Gazpacho%20Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Gazpacho";
+        src: url("./src/styles/asset/font/Gazpacho%20Bold.ttf") format("truetype");
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      :root {
+        --naskun-yellow: #ffb703;
+        --naskun-dark: #342c27;
+        --naskun-cream: #fffbf2;
+      }
+
+      .font-gazpacho {
+        font-family: "Gazpacho", Georgia, serif;
+      }
+
+      .font-inter {
+        font-family: "Inter", sans-serif;
+      }
+
+      .menu-card:hover .menu-card-image,
+      .menu-card:focus-visible .menu-card-image {
+        transform: scale(1.08);
+      }
+
+      .menu-card:hover .menu-card-overlay,
+      .menu-card:focus-visible .menu-card-overlay {
+        opacity: 1;
+      }
+
+      .menu-card:hover .menu-card-title,
+      .menu-card:focus-visible .menu-card-title {
+        color: #000000;
+      }
+
+      .best-seller-card:hover .best-seller-image,
+      .best-seller-card:focus-visible .best-seller-image {
+        transform: scale(1.08);
+      }
+
+      .best-seller-card:hover .best-seller-overlay,
+      .best-seller-card:focus-visible .best-seller-overlay {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body class="font-inter bg-[var(--naskun-cream)] text-[var(--naskun-dark)]">
+    <!-- ===== 1 ===== -->
+    <section class="pt-[96px]">
+      <div>
+        <nav
+          class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-[#FFFBF2] px-6 py-6 backdrop-blur-sm md:px-10 lg:px-16"
+        >
+          <a href="#" class="inline-flex items-center">
+            <img
+              src="./src/styles/asset/font/image/logo3.png"
+              alt="Logo Tradisi Rasa"
+              class="h-12 w-auto object-contain md:h-14"
+            />
+          </a>
+
+          <div
+            class="font-gazpacho hidden items-center gap-10 text-[14px] font-medium text-black md:flex"
+          >
+            <a href="index.html" class="transition hover:opacity-70">Home</a>
+            <a href="all.html" class="transition hover:opacity-70">Pilihan Menu</a>
+            <a href="#about" class="transition hover:opacity-70">About Us</a>
+            <a href="#about" class="transition hover:opacity-70">Review</a>
+            <a
+              href="#contact"
+              class="rounded-full bg-[#6b625b] px-7 py-3 text-white transition hover:bg-[var(--naskun-dark)]"
+            >
+              Hubungi Kami
+            </a>
+          </div>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ===== 2 ===== -->
+    <section class="bg-white px-6 py-16 md:px-10 md:py-20 lg:px-16 lg:py-24">
+      <div class="mx-auto max-w-[1220px]">
+        <div class="flex items-end justify-between">
+          <h2
+            class="font-gazpacho text-[44px] font-semibold leading-[0.88] text-[var(--naskun-dark)] md:text-[64px] lg:text-[72px]"
+          >
+            Pilihan Menu<br />Nasi Kuning
+          </h2>
+
+          <div class="flex gap-5">
+            <a
+              href="./detail.html"
+              class="font-gazpacho text-[13px] text-[#5A4B43] transition hover:text-[#ffb703]"
+            >
+              Nasi Kuning Klasik
+            </a>
+            <a
+              href="./detail.html"
+              class="font-gazpacho text-[13px] text-[#5A4B43] transition hover:text-[#ffb703]"
+            >
+              Paket Tumpeng
+            </a>
+            <a
+              href="./detail.html"
+              class="font-gazpacho text-[13px] text-[#5A4B43] transition hover:text-[#ffb703]"
+            >
+              Lauk Pauk Spesial
+            </a>
+            <a
+              href="./detail.html"
+              class="font-gazpacho text-[13px] text-[#5A4B43] transition hover:text-[#ffb703]"
+            >
+              Menu Catering
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="mt-16 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-x-9 lg:gap-y-10"
+        >
+          <article>
+            <a href="./detail.html" class="best-seller-card block">
+              <div class="relative overflow-hidden rounded-[8px]">
+                <img
+                  src="./src/styles/asset/font/image/kun1.png"
+                  alt="Nasi Kuning Klasik"
+                  class="best-seller-image h-[240px] w-full object-cover transition-transform duration-500 ease-out"
+                />
+                <div
+                  class="best-seller-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-500 ease-out"
+                ></div>
+              </div>
+              <h3
+                class="font-gazpacho font-semibold mt-3 text-[16px] font-medium leading-[1.25] text-[var(--naskun-dark)]"
+              >
+                Nasi Kuning Klasik
+              </h3>
+              <p class="mt-1 text-[14px] text-[#5A4B43]">RP. 20.000</p>
+            </a>
+          </article>
+          <article>
+            <a href="./detail.html" class="best-seller-card block">
+              <div class="relative overflow-hidden rounded-[8px]">
+                <img
+                  src="./src/styles/asset/font/image/kun2.png"
+                  alt="Nasi Kuning Klasik"
+                  class="best-seller-image h-[240px] w-full object-cover transition-transform duration-500 ease-out"
+                />
+                <div
+                  class="best-seller-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-500 ease-out"
+                ></div>
+              </div>
+              <h3
+                class="font-gazpacho font-semibold mt-3 text-[16px] font-medium leading-[1.25] text-[var(--naskun-dark)]"
+              >
+                Nasi Kuning Ayam
+              </h3>
+              <p class="mt-1 text-[14px] text-[#5A4B43]">RP. 20.000</p>
+            </a>
+          </article>
+          <article>
+            <a href="./detail.html" class="best-seller-card block">
+              <div class="relative overflow-hidden rounded-[8px]">
+                <img
+                  src="./src/styles/asset/font/image/kun3.png"
+                  alt="Nasi Kuning Klasik"
+                  class="best-seller-image h-[240px] w-full object-cover transition-transform duration-500 ease-out"
+                />
+                <div
+                  class="best-seller-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-500 ease-out"
+                ></div>
+              </div>
+              <h3
+                class="font-gazpacho font-semibold mt-3 text-[16px] font-medium leading-[1.25] text-[var(--naskun-dark)]"
+              >
+                Nasi Kuning Rendang
+              </h3>
+              <p class="mt-1 text-[14px] text-[#5A4B43]">RP. 20.000</p>
+            </a>
+          </article>
+          <article>
+            <a href="./detail.html" class="best-seller-card block">
+              <div class="relative overflow-hidden rounded-[8px]">
+                <img
+                  src="./src/styles/asset/font/image/kun4.png"
+                  alt="Nasi Kuning Klasik"
+                  class="best-seller-image h-[240px] w-full object-cover transition-transform duration-500 ease-out"
+                />
+                <div
+                  class="best-seller-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-500 ease-out"
+                ></div>
+              </div>
+              <h3
+                class="font-gazpacho font-semibold mt-3 text-[16px] font-medium leading-[1.25] text-[var(--naskun-dark)]"
+              >
+                Nasi Kuning campur
+              </h3>
+              <p class="mt-1 text-[14px] text-[#5A4B43]">RP. 20.000</p>
+            </a>
+          </article>
+          <article>
+            <a href="./detail.html" class="best-seller-card block">
+              <div class="relative overflow-hidden rounded-[8px]">
+                <img
+                  src="./src/styles/asset/font/image/kun5.png"
+                  alt="Nasi Kuning Klasik"
+                  class="best-seller-image h-[240px] w-full object-cover transition-transform duration-500 ease-out"
+                />
+                <div
+                  class="best-seller-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-500 ease-out"
+                ></div>
+              </div>
+              <h3
+                class="font-gazpacho font-semibold mt-3 text-[16px] font-medium leading-[1.25] text-[var(--naskun-dark)]"
+              >
+                Nasi Kuning daun sirih
+              </h3>
+              <p class="mt-1 text-[14px] text-[#5A4B43]">RP. 20.000</p>
+            </a>
+          </article>
+          <article>
+            <a href="./detail.html" class="best-seller-card block">
+              <div class="relative overflow-hidden rounded-[8px]">
+                <img
+                  src="./src/styles/asset/font/image/kun6(2).png"
+                  alt="Nasi Kuning Klasik"
+                  class="best-seller-image h-[240px] w-full object-cover transition-transform duration-500 ease-out"
+                />
+                <div
+                  class="best-seller-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-500 ease-out"
+                ></div>
+              </div>
+              <h3
+                class="font-gazpacho font-semibold mt-3 text-[16px] font-medium leading-[1.25] text-[var(--naskun-dark)]"
+              >
+                Nasi Kuning sultan
+              </h3>
+              <p class="mt-1 text-[14px] text-[#5A4B43]">RP. 20.000</p>
+            </a>
+          </article>
+          <article>
+            <a href="./detail.html" class="best-seller-card block">
+              <div class="relative overflow-hidden rounded-[8px]">
+                <img
+                  src="./src/styles/asset/font/image/kun7.png"
+                  alt="Nasi Kuning Klasik"
+                  class="best-seller-image h-[240px] w-full object-cover transition-transform duration-500 ease-out"
+                />
+                <div
+                  class="best-seller-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-500 ease-out"
+                ></div>
+              </div>
+              <h3
+                class="font-gazpacho font-semibold mt-3 text-[16px] font-medium leading-[1.25] text-[var(--naskun-dark)]"
+              >
+                Nasi Kuning tunjang
+              </h3>
+              <p class="mt-1 text-[14px] text-[#5A4B43]">RP. 20.000</p>
+            </a>
+          </article>
+          <article>
+            <a href="./detail.html" class="best-seller-card block">
+              <div class="relative overflow-hidden rounded-[8px]">
+                <img
+                  src="./src/styles/asset/font/image/kun2.png"
+                  alt="Nasi Kuning Klasik"
+                  class="best-seller-image h-[240px] w-full object-cover transition-transform duration-500 ease-out"
+                />
+                <div
+                  class="best-seller-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-500 ease-out"
+                ></div>
+              </div>
+              <h3
+                class="font-gazpacho font-semibold mt-3 text-[16px] font-medium leading-[1.25] text-[var(--naskun-dark)]"
+              >
+                Nasi Kuning ayam
+              </h3>
+              <p class="mt-1 text-[14px] text-[#5A4B43]">RP. 20.000</p>
+            </a>
+          </article>
+          <article>
+            <a href="./detail.html" class="best-seller-card block">
+              <div class="relative overflow-hidden rounded-[8px]">
+                <img
+                  src="./src/styles/asset/font/image/kun8.png"
+                  alt="Nasi Kuning Klasik"
+                  class="best-seller-image h-[240px] w-full object-cover transition-transform duration-500 ease-out"
+                />
+                <div
+                  class="best-seller-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-500 ease-out"
+                ></div>
+              </div>
+              <h3
+                class="font-gazpacho font-semibold mt-3 text-[16px] font-medium leading-[1.25] text-[var(--naskun-dark)]"
+              >
+                Nasi Kuning udang
+              </h3>
+              <p class="mt-1 text-[14px] text-[#5A4B43]">RP. 20.000</p>
+            </a>
+          </article>
+          <article>
+            <a href="./detail.html" class="best-seller-card block">
+              <div class="relative overflow-hidden rounded-[8px]">
+                <img
+                  src="./src/styles/asset/font/image/kun9.png"
+                  alt="Nasi Kuning Klasik"
+                  class="best-seller-image h-[240px] w-full object-cover transition-transform duration-500 ease-out"
+                />
+                <div
+                  class="best-seller-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-500 ease-out"
+                ></div>
+              </div>
+              <h3
+                class="font-gazpacho font-semibold mt-3 text-[16px] font-medium leading-[1.25] text-[var(--naskun-dark)]"
+              >
+                Nasi Kuning hitam
+              </h3>
+              <p class="mt-1 text-[14px] text-[#5A4B43]">RP. 20.000</p>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Footers ===== -->
+    <footer class="bg-[#2D2926] px-6 py-14 text-white md:px-10 md:py-16 lg:px-16 lg:py-18">
+      <div class="mx-auto max-w-[1220px]">
+        <div class="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+          <div class="flex items-center gap-3">
+            <img
+              src="./src/styles/asset/font/image/logo4.png"
+              alt="Logo Nasi Kuning Lezat"
+              class="h-15 w-auto object-contain"
+            />
+          </div>
+
+          <p class="max-w-[320px] text-right text-[14px] font-medium leading-[1.45] text-[#FFF7EC]">
+            kami percaya bahwa tradisi yang dijaga dengan integritas akan menghasilkan keajaiban
+            rasa yang abadi.
+          </p>
+        </div>
+
+        <h2
+          class="font-gazpacho mt-12 text-[30px] font-semibold leading-none text-[#FFF7EC] md:text-[74px] lg:text-[53px]"
+        >
+          Berkah Food
+        </h2>
+
+        <div class="mt-12 h-px w-full bg-white"></div>
+
+        <div class="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <h3 class="font-gazpacho text-[20px] font-semibold text-[#FFF7EC]">ALAMAT</h3>
+            <p class="mt-5 text-[14px] leading-[1.55] text-[#FFF7EC]">
+              M7R8+3V, Krajan Kidul, Lemahbang Kulon, Kec. Singojuruh, Kabupaten Banyuwangi, Jawa
+              Timur
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-gazpacho text-[20px] font-semibold text-[#FFF7EC]">HUBUNGI KAMI</h3>
+            <p class="mt-5 text-[14px] leading-[1.8] text-[#FFF7EC]">
+              T: +62 211234 5678
+              <br />
+              E: halo@berkahfood.id
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-gazpacho text-[20px] font-semibold text-[#FFF7EC]">JAM LAYANAN</h3>
+            <p class="mt-5 text-[14px] leading-[1.8] text-[#FFF7EC]">
+              Senin - Minggu
+              <br />
+              07.00 - 21.00 WIB
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-gazpacho text-[20px] font-semibold text-[#FFF7EC]">IKUTI KAMI</h3>
+            <div class="mt-5 flex flex-wrap gap-3">
+              <a
+                href="https://facebook.com/username-anda"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook Berkah Food"
+                class="transition hover:opacity-80"
+              >
+                <img
+                  src="./src/styles/asset/font/image/facebook.png"
+                  alt="Facebook"
+                  class="h-8 w-8 object-contain"
+                />
+              </a>
+              <a
+                href="https://instagram.com/username-anda"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram Berkah Food"
+                class="transition hover:opacity-80"
+              >
+                <img
+                  src="./src/styles/asset/font/image/instagram.png"
+                  alt="Instagram"
+                  class="h-8 w-8 object-contain"
+                />
+              </a>
+              <a
+                href="https://wa.me/6281234567890"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp Berkah Food"
+                class="transition hover:opacity-80"
+              >
+                <img
+                  src="./src/styles/asset/font/image/whatsapp.png"
+                  alt="WhatsApp"
+                  class="h-8 w-8 object-contain"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="mt-16 flex flex-col gap-4 text-[14px] text-[#FFF7EC] md:flex-row md:items-center md:justify-between"
+        >
+          <p>© 2026 Berkah Food. All Rights Reserved.</p>
+          <p>Dibuat oleh Tim Codexa.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

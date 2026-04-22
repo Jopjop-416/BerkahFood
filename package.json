@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tailwindcss -i ./src/styles/tailwind.css -o ./dist/styles.css --minify",
     "dev": "tailwindcss -i ./src/styles/tailwind.css -o ./dist/styles.css --watch",
+    "format": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,6 +18,7 @@
     "autoprefixer": "^10.4.27",
     "postcss": "^8.5.9",
     "postcss-cli": "^11.0.1",
+    "prettier": "^3.8.3",
     "tailwindcss": "^4.2.2"
   }
 }
