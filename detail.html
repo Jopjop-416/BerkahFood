@@ -1,52 +1,625 @@
 <!doctype html>
-<html lang="id">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Detail Menu</title>
+    <title>Tradisi Rasa Nasi Kuning</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
-      body {
-        margin: 0;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        background: #fcf4e6;
-        color: #342c27;
+      @font-face {
+        font-family: "Gazpacho";
+        src: url("./src/styles/asset/font/Gazpacho%20Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Gazpacho";
+        src: url("./src/styles/asset/font/Gazpacho%20Bold.ttf") format("truetype");
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      :root {
+        --naskun-yellow: #ffb703;
+        --naskun-dark: #342c27;
+        --naskun-cream: #fffbf2;
+      }
+
+      .font-gazpacho {
+        font-family: "Gazpacho", Georgia, serif;
+      }
+
+      .font-inter {
         font-family: "Inter", sans-serif;
       }
 
-      .card {
-        width: min(720px, calc(100% - 32px));
-        border-radius: 24px;
-        padding: 40px 32px;
-        background: #ffffff;
-        box-shadow: 0 20px 50px rgba(52, 44, 39, 0.08);
-        text-align: center;
-      }
-
-      h1 {
-        margin: 0 0 16px;
-        font-size: clamp(36px, 6vw, 56px);
-        line-height: 0.95;
-      }
-
-      p {
-        margin: 0;
-        font-size: 18px;
-        line-height: 1.7;
+      .detail-panel summary::-webkit-details-marker {
+        display: none;
       }
     </style>
   </head>
-  <body>
-    <main class="card">
-      <h1>Detail Menu</h1>
-      <p>Halaman ini masih kosong dan siap diisi konten detail menu berikutnya.</p>
-    </main>
+  <body class="font-inter bg-[var(--naskun-cream)] text-[var(--naskun-dark)]">
+    <!-- ===== 1 ===== -->
+    <section class="pt-[96px]">
+      <div>
+        <nav
+          class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-[#FFFBF2] px-6 py-6 backdrop-blur-sm md:px-10 lg:px-16"
+        >
+          <a href="index.html" class="inline-flex items-center">
+            <img
+              src="./src/styles/asset/font/image/logo3.png"
+              alt="Logo Tradisi Rasa"
+              class="h-12 w-auto object-contain md:h-14"
+            />
+          </a>
+
+          <div
+            class="font-gazpacho hidden items-center gap-10 text-[14px] font-medium text-black md:flex"
+          >
+            <a href="index.html" class="transition hover:opacity-70">Home</a>
+            <a href="all.html" class="transition hover:opacity-70">Pilihan Menu</a>
+            <a href="#about" class="transition hover:opacity-70">About Us</a>
+            <a href="#about" class="transition hover:opacity-70">Review</a>
+            <a href="#about" class="transition hover:opacity-70">Keranjang</a>
+            <a
+              href="#contact"
+              class="rounded-full bg-[#6B625B] px-7 py-3 text-white transition hover:bg-[var(--naskun-dark)]"
+            >
+              Hubungi Kami
+            </a>
+          </div>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ===== 2 ===== -->
+    <section class="bg-white px-6 pb-16 pt-10 md:px-10 lg:px-16 lg:pb-24">
+      <div
+        class="mx-auto grid max-w-[1220px] items-start gap-10 lg:grid-cols-[520px_minmax(0,1fr)] lg:gap-8"
+      >
+        <div class="space-y-5">
+          <div class="grid gap-3 lg:grid-cols-[40px_minmax(0,1fr)] lg:items-start">
+            <div class="order-2 flex gap-2 lg:order-1 lg:flex-col">
+              <button
+                type="button"
+                class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-[5px] border border-[#AFA79B] bg-[#F0F0F0]"
+              >
+                <img
+                  src="./src/styles/asset/font/image/kun1.png"
+                  alt="Thumbnail menu"
+                  class="h-full w-full object-cover"
+                />
+              </button>
+            </div>
+
+            <div
+              class="order-1 overflow-hidden rounded-[10px] border border-[#AFA79B] bg-[#ECEDEF] lg:order-2"
+            >
+              <img
+                src="./src/styles/asset/font/image/kun1.png"
+                alt="Nasi Kuning Klasik"
+                class="h-[420px] w-full object-cover md:h-[520px] lg:h-[440px]"
+              />
+            </div>
+          </div>
+
+          <div class="grid gap-3 lg:grid-cols-[40px_minmax(0,1fr)]">
+            <div class="hidden lg:block"></div>
+            <div class="min-w-0">
+              <h2
+                class="font-gazpacho text-[22px] leading-none text-[var(--naskun-dark)] md:text-[17px]"
+              >
+                Lauk Tambahan
+              </h2>
+
+              <div class="mt-4 overflow-hidden" id="addon-slider">
+                <div
+                  id="addon-track"
+                  class="flex transition-transform duration-300 ease-out"
+                  style="transform: translateX(0%)"
+                >
+                  <div class="w-full shrink-0 space-y-4">
+                    <div
+                      class="flex items-center max-w-[460px] justify-between rounded-[10px] border border-[#D9D0C2] bg-white px-4 py-3"
+                    >
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="flex h-14 w-14 items-center justify-center overflow-hidden rounded-[6px] border border-[#CBBEAC] bg-[#F0F0F0]"
+                        >
+                          <img
+                            src="./src/styles/asset/font/image/kun2.png"
+                            alt="Ayam Goreng"
+                            class="h-full w-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <p class="text-[14px] leading-[1.2] text-[var(--naskun-dark)]">
+                            Ayam Goreng
+                          </p>
+                          <p class="mt-1 text-[14px] leading-none text-[#5A4B43]">10.000</p>
+                        </div>
+                      </div>
+
+                      <div class="inline-flex items-center border border-[#B8AE9D]">
+                        <button
+                          type="button"
+                          class="addon-minus flex h-10 w-10 items-center justify-center text-[22px] text-[#7A7065] transition hover:bg-[#F3EBDD]"
+                        >
+                          -
+                        </button>
+                        <input
+                          type="text"
+                          value="1"
+                          readonly
+                          class="addon-qty h-7 w-7 bg-white text-center text-[14px] text-[var(--naskun-dark)] outline-none"
+                        />
+                        <button
+                          type="button"
+                          class="addon-plus flex h-10 w-10 items-center justify-center text-[22px] text-[#7A7065] transition hover:bg-[#F3EBDD]"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+
+                    <div
+                      class="flex items-center max-w-[460px] justify-between rounded-[10px] border border-[#D9D0C2] bg-white px-4 py-3"
+                    >
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="flex h-14 w-14 items-center justify-center overflow-hidden rounded-[6px] border border-[#CBBEAC] bg-[#F0F0F0]"
+                        >
+                          <img
+                            src="./src/styles/asset/font/image/kun3.png"
+                            alt="Telur Balado"
+                            class="h-full w-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <p class="text-[14px] leading-[1.2] text-[var(--naskun-dark)]">
+                            Telur Balado
+                          </p>
+                          <p class="mt-1 text-[14px] leading-none text-[#5A4B43]">8.000</p>
+                        </div>
+                      </div>
+
+                      <div class="inline-flex items-center border border-[#B8AE9D]">
+                        <button
+                          type="button"
+                          class="addon-minus flex h-10 w-10 items-center justify-center text-[22px] text-[#7A7065] transition hover:bg-[#F3EBDD]"
+                        >
+                          -
+                        </button>
+                        <input
+                          type="text"
+                          value="1"
+                          readonly
+                          class="addon-qty h-7 w-7 bg-white text-center text-[14px] text-[var(--naskun-dark)] outline-none"
+                        />
+                        <button
+                          type="button"
+                          class="addon-plus flex h-10 w-10 items-center justify-center text-[22px] text-[#7A7065] transition hover:bg-[#F3EBDD]"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="w-full shrink-0 space-y-4">
+                    <div
+                      class="flex items-center max-w-[460px] justify-between rounded-[10px] border border-[#D9D0C2] bg-white px-4 py-3"
+                    >
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="flex h-14 w-14 items-center justify-center overflow-hidden rounded-[6px] border border-[#CBBEAC] bg-[#F0F0F0]"
+                        >
+                          <img
+                            src="./src/styles/asset/font/image/kun4.png"
+                            alt="Perkedel Kentang"
+                            class="h-full w-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <p class="text-[14px] leading-[1.2] text-[var(--naskun-dark)]">
+                            Perkedel Kentang
+                          </p>
+                          <p class="mt-1 text-[14px] leading-none text-[#5A4B43]">7.000</p>
+                        </div>
+                      </div>
+
+                      <div class="inline-flex items-center border border-[#B8AE9D]">
+                        <button
+                          type="button"
+                          class="addon-minus flex h-10 w-10 items-center justify-center text-[22px] text-[#7A7065] transition hover:bg-[#F3EBDD]"
+                        >
+                          -
+                        </button>
+                        <input
+                          type="text"
+                          value="1"
+                          readonly
+                          class="addon-qty h-7 w-7 bg-white text-center text-[14px]  text-[var(--naskun-dark)] outline-none"
+                        />
+                        <button
+                          type="button"
+                          class="addon-plus flex h-10 w-10 items-center justify-center text-[22px] text-[#7A7065] transition hover:bg-[#F3EBDD]"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+
+                    <div
+                      class="flex items-center max-w-[460px] justify-between rounded-[10px] border border-[#D9D0C2] bg-white px-4 py-3"
+                    >
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="flex h-14 w-14 items-center justify-center overflow-hidden rounded-[6px] border border-[#CBBEAC] bg-[#F0F0F0]"
+                        >
+                          <img
+                            src="./src/styles/asset/font/image/kun5.png"
+                            alt="Sambal Goreng Ati"
+                            class="h-full w-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <p class="text-[14px] leading-[1.2] text-[var(--naskun-dark)]">
+                            Sambal Goreng Ati
+                          </p>
+                          <p class="mt-1 text-[14px] leading-none text-[#5A4B43]">12.000</p>
+                        </div>
+                      </div>
+
+                      <div class="inline-flex items-center border border-[#B8AE9D]">
+                        <button
+                          type="button"
+                          class="addon-minus flex h-10 w-10 items-center justify-center text-[22px] text-[#7A7065] transition hover:bg-[#F3EBDD]"
+                        >
+                          -
+                        </button>
+                        <input
+                          type="text"
+                          value="1"
+                          readonly
+                          class="addon-qty h-7 w-7 bg-white text-center text-[14px]  text-[var(--naskun-dark)] outline-none"
+                        />
+                        <button
+                          type="button"
+                          class="addon-plus flex h-10 w-10 items-center justify-center text-[22px] text-[#7A7065] transition hover:bg-[#F3EBDD]"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="w-full shrink-0 space-y-4">
+                    <div
+                      class="flex items-center max-w-[460px] justify-between rounded-[10px] border border-[#D9D0C2] bg-white px-4 py-3"
+                    >
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="flex h-14 w-14 items-center justify-center overflow-hidden rounded-[6px] border border-[#CBBEAC] bg-[#F0F0F0]"
+                        >
+                          <img
+                            src="./src/styles/asset/font/image/kun8.png"
+                            alt="Udang Crispy"
+                            class="h-full w-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <p class="text-[14px] leading-[1.2] text-[var(--naskun-dark)]">
+                            Udang Crispy
+                          </p>
+                          <p class="mt-1 text-[14px] leading-none text-[#5A4B43]">15.000</p>
+                        </div>
+                      </div>
+
+                      <div class="inline-flex items-center border border-[#B8AE9D]">
+                        <button
+                          type="button"
+                          class="addon-minus flex h-10 w-10 items-center justify-center text-[22px] text-[#7A7065] transition hover:bg-[#F3EBDD]"
+                        >
+                          -
+                        </button>
+                        <input
+                          type="text"
+                          value="1"
+                          readonly
+                          class="addon-qty h-7 w-7 bg-white text-center text-[14px]  text-[var(--naskun-dark)] outline-none"
+                        />
+                        <button
+                          type="button"
+                          class="addon-plus flex h-10 w-10 items-center justify-center text-[22px] text-[#7A7065] transition hover:bg-[#F3EBDD]"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-5 flex items-center justify-center">
+                <div class="flex items-center gap-2">
+                  <button
+                    type="button"
+                    aria-label="Tampilkan lauk tambahan halaman 1"
+                    class="h-2.5 w-9 rounded-full border-3 border-[#FFB703] bg-white transition-all duration-300 ease-out"
+                    data-addon-dot="0"
+                  ></button>
+                  <button
+                    type="button"
+                    aria-label="Tampilkan lauk tambahan halaman 2"
+                    class="h-2.5 w-2.5 rounded-full border-3 border-transparent bg-[#FFB703] transition-all duration-300 ease-out"
+                    data-addon-dot="1"
+                  ></button>
+                  <button
+                    type="button"
+                    aria-label="Tampilkan lauk tambahan halaman 3"
+                    class="h-2.5 w-2.5 rounded-full border-3 border-transparent bg-[#FFB703] transition-all duration-300 ease-out"
+                    data-addon-dot="2"
+                  ></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="max-w-[430px] self-start">
+          <h1
+            class="font-gazpacho text-[34px] leading-[1.1] text-[var(--naskun-dark)] font-semibold md:text-[42px]"
+          >
+            Nasi Kuning Klasik
+          </h1>
+          <p class="font-gazpacho mt-2 text-[21px] leading-none font-semibold text-[#FAB100]">Rp20.000</p>
+
+          <div class="mt-10">
+            <p class="text-md font-gazpacho text-[var(--naskun-dark)]">*Jumlah</p>
+            <div class="mt-3 inline-flex items-center border border-[#B8AE9D]">
+              <button
+                type="button"
+                id="qty-minus"
+                class="flex h-10 w-10 items-center justify-center text-[22px] text-[#7A7065] transition hover:bg-[#F3EBDD]"
+              >
+                -
+              </button>
+              <input
+                id="qty"
+                type="text"
+                value="1"
+                readonly
+                class="h-10 w-10 bg-white text-center text-[16px] text-[var(--naskun-dark)] outline-none"
+              />
+              <button
+                type="button"
+                id="qty-plus"
+                class="flex h-10 w-10 items-center justify-center text-[22px] text-[#7A7065] transition hover:bg-[#F3EBDD]"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-8 space-y-3">
+            <button
+              type="button"
+              class="font-gazpacho rounded-full flex h-12 w-full items-center justify-center bg-[#E63946] text-[16px] font-medium text-white transition hover:opacity-90"
+            >
+              Tambah ke Keranjang
+            </button>
+            <button
+              type="button"
+              class="font-gazpacho rounded-full flex h-12 w-full items-center justify-center bg-[var(--naskun-dark)] text-[16px] font-medium text-white transition hover:opacity-90"
+            >
+              Beli Sekarang
+            </button>
+          </div>
+
+          <p class="mt-8 text-[15px] leading-[1.6] text-[#5C514A]">
+            Perpaduan nasi kuning gurih dengan lauk pelengkap pilihan yang dimasak segar setiap
+            hari. Cocok untuk sarapan spesial, acara keluarga, dan sajian premium yang tetap terasa
+            hangat dan akrab.
+          </p>
+
+          <div class="mt-8 space-y-0 border-t border-[#E7DDCF]">
+            <details class="detail-panel border-b border-[#E7DDCF] pb-5 pt-4" open>
+              <summary
+                class="flex cursor-pointer list-none items-center justify-between text-[18px] text-[var(--naskun-dark)]"
+              >
+                <span>Product Info</span>
+                <span class="text-[24px] leading-none text-[#7A7065]">-</span>
+              </summary>
+              <div class="mt-4 text-[15px] leading-[1.65] text-[#5C514A]">
+                Hidangan terdiri dari nasi kuning berbumbu, telur rebus, mie goreng, sambal, dan
+                pelengkap gurih. Dibuat dari bahan segar dengan rasa autentik khas rumahan yang
+                tetap elegan untuk berbagai momen spesial.
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      (() => {
+        const qtyInput = document.getElementById("qty");
+        const minus = document.getElementById("qty-minus");
+        const plus = document.getElementById("qty-plus");
+        const addonTrack = document.getElementById("addon-track");
+        const addonDots = Array.from(document.querySelectorAll("[data-addon-dot]"));
+        let addonPage = 0;
+        const addonPageCount = 3;
+
+        const updateAddonSlider = () => {
+          if (addonTrack) {
+            addonTrack.style.transform = `translateX(-${addonPage * 100}%)`;
+          }
+
+          addonDots.forEach((dot, index) => {
+            if (index === addonPage) {
+              dot.className =
+                "h-2.5 w-9 rounded-full border-3 border-[#FFB703] bg-white transition-all duration-300 ease-out";
+            } else {
+              dot.className =
+                "h-2.5 w-2.5 rounded-full border-3 border-transparent bg-[#FFB703] transition-all duration-300 ease-out";
+            }
+          });
+        };
+
+        if (qtyInput && minus && plus) {
+          minus.addEventListener("click", () => {
+            const current = Number(qtyInput.value || "1");
+            qtyInput.value = String(Math.max(1, current - 1));
+          });
+
+          plus.addEventListener("click", () => {
+            const current = Number(qtyInput.value || "1");
+            qtyInput.value = String(current + 1);
+          });
+        }
+
+        document.querySelectorAll(".addon-minus").forEach((button) => {
+          button.addEventListener("click", () => {
+            const input = button.parentElement.querySelector(".addon-qty");
+            const current = Number(input.value || "1");
+            input.value = String(Math.max(1, current - 1));
+          });
+        });
+
+        document.querySelectorAll(".addon-plus").forEach((button) => {
+          button.addEventListener("click", () => {
+            const input = button.parentElement.querySelector(".addon-qty");
+            const current = Number(input.value || "1");
+            input.value = String(current + 1);
+          });
+        });
+
+        addonDots.forEach((dot, index) => {
+          dot.addEventListener("click", () => {
+            addonPage = index;
+            updateAddonSlider();
+          });
+        });
+
+        updateAddonSlider();
+      })();
+    </script>
+
+    <!-- ===== Footers ===== -->
+    <footer class="bg-[#2D2926] px-6 py-14 text-white md:px-10 md:py-16 lg:px-16 lg:py-18">
+      <div class="mx-auto max-w-[1220px]">
+        <div class="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+          <div class="flex items-center gap-3">
+            <img
+              src="./src/styles/asset/font/image/logo4.png"
+              alt="Logo Nasi Kuning Lezat"
+              class="h-15 w-auto object-contain"
+            />
+          </div>
+
+          <p class="max-w-[320px] text-right text-[14px] font-medium leading-[1.45] text-[#FFF7EC]">
+            kami percaya bahwa tradisi yang dijaga dengan integritas akan menghasilkan keajaiban
+            rasa yang abadi.
+          </p>
+        </div>
+
+        <h2
+          class="font-gazpacho mt-12 text-[30px] font-semibold leading-none text-[#FFF7EC] md:text-[74px] lg:text-[53px]"
+        >
+          Berkah Food
+        </h2>
+
+        <div class="mt-12 h-px w-full bg-white"></div>
+
+        <div class="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <h3 class="font-gazpacho text-[20px] font-semibold text-[#FFF7EC]">ALAMAT</h3>
+            <p class="mt-5 text-[14px] leading-[1.55] text-[#FFF7EC]">
+              M7R8+3V, Krajan Kidul, Lemahbang Kulon, Kec. Singojuruh, Kabupaten Banyuwangi, Jawa
+              Timur
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-gazpacho text-[20px] font-semibold text-[#FFF7EC]">HUBUNGI KAMI</h3>
+            <p class="mt-5 text-[14px] leading-[1.8] text-[#FFF7EC]">
+              T: +62 211234 5678
+              <br />
+              E: halo@berkahfood.id
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-gazpacho text-[20px] font-semibold text-[#FFF7EC]">JAM LAYANAN</h3>
+            <p class="mt-5 text-[14px] leading-[1.8] text-[#FFF7EC]">
+              Senin - Minggu
+              <br />
+              07.00 - 21.00 WIB
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-gazpacho text-[20px] font-semibold text-[#FFF7EC]">IKUTI KAMI</h3>
+            <div class="mt-5 flex flex-wrap gap-3">
+              <a
+                href="https://facebook.com/username-anda"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook Berkah Food"
+                class="transition hover:opacity-80"
+              >
+                <img
+                  src="./src/styles/asset/font/image/facebook.png"
+                  alt="Facebook"
+                  class="h-8 w-8 object-contain"
+                />
+              </a>
+              <a
+                href="https://instagram.com/username-anda"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram Berkah Food"
+                class="transition hover:opacity-80"
+              >
+                <img
+                  src="./src/styles/asset/font/image/instagram.png"
+                  alt="Instagram"
+                  class="h-8 w-8 object-contain"
+                />
+              </a>
+              <a
+                href="https://wa.me/6281234567890"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp Berkah Food"
+                class="transition hover:opacity-80"
+              >
+                <img
+                  src="./src/styles/asset/font/image/whatsapp.png"
+                  alt="WhatsApp"
+                  class="h-8 w-8 object-contain"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="mt-16 flex flex-col gap-4 text-[14px] text-[#FFF7EC] md:flex-row md:items-center md:justify-between"
+        >
+          <p>© 2026 Berkah Food. All Rights Reserved.</p>
+          <p>Dibuat oleh Tim Codexa.</p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
