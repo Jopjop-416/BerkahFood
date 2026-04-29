@@ -43,6 +43,41 @@
       .detail-panel summary::-webkit-details-marker {
         display: none;
       }
+
+      .cart-float {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(120%) scale(0.92);
+      }
+
+      .cart-float.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(0) scale(1);
+      }
+
+      .cart-float:hover {
+        transform: translateX(-8px) scale(1.04);
+      }
+
+      .cart-drawer {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .cart-drawer.is-open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .cart-panel {
+        transform: translateX(100%) scale(0.96);
+        transform-origin: right center;
+      }
+
+      .cart-drawer.is-open .cart-panel {
+        transform: translateX(0) scale(1);
+      }
     </style>
   </head>
   <body class="font-inter bg-[var(--naskun-cream)] text-[var(--naskun-dark)]">
@@ -157,6 +192,7 @@
                         <input
                           type="text"
                           value="0"
+                          data-name="Ayam Goreng"
                           data-price="10000"
                           readonly
                           class="addon-qty h-7 w-7 bg-white text-center text-[14px] text-[var(--naskun-dark)] outline-none"
@@ -201,6 +237,7 @@
                         <input
                           type="text"
                           value="0"
+                          data-name="Telur Balado"
                           data-price="8000"
                           readonly
                           class="addon-qty h-7 w-7 bg-white text-center text-[14px] text-[var(--naskun-dark)] outline-none"
@@ -247,6 +284,7 @@
                         <input
                           type="text"
                           value="0"
+                          data-name="Perkedel Kentang"
                           data-price="7000"
                           readonly
                           class="addon-qty h-7 w-7 bg-white text-center text-[14px] text-[var(--naskun-dark)] outline-none"
@@ -291,6 +329,7 @@
                         <input
                           type="text"
                           value="0"
+                          data-name="Sambal Goreng Ati"
                           data-price="12000"
                           readonly
                           class="addon-qty h-7 w-7 bg-white text-center text-[14px] text-[var(--naskun-dark)] outline-none"
@@ -337,6 +376,7 @@
                         <input
                           type="text"
                           value="0"
+                          data-name="Udang Crispy"
                           data-price="15000"
                           readonly
                           class="addon-qty h-7 w-7 bg-white text-center text-[14px] text-[var(--naskun-dark)] outline-none"
@@ -422,6 +462,7 @@
           <div class="mt-8 space-y-3">
             <button
               type="button"
+              id="add-to-cart"
               class="font-gazpacho rounded-full flex h-12 w-full items-center justify-center bg-[#E63946] text-[16px] font-medium text-white transition hover:opacity-90"
             >
               Tambah ke Keranjang
@@ -459,33 +500,185 @@
       </div>
     </section>
 
+    <button
+      type="button"
+      id="floating-cart"
+      aria-label="Buka keranjang"
+      class="cart-float fixed right-0 bottom-8 z-40 h-[53px] w-[80px] rounded-l-[8px] bg-[#2D2926] duration-500 ease-out"
+    >
+      <img
+        src="./src/styles/asset/font/image/logo-transparan.png"
+        alt="Keranjang Berkah Food"
+        class="absolute -top-[55px] left-1/2 h-[80px] w-[80px] -translate-x-1/2 object-contain"
+      />
+      <span
+        id="cart-badge"
+        class="absolute top-3 right-3 flex h-6 min-w-6 items-center justify-center rounded-full bg-[#E63946] px-1.5 text-[12px] font-semibold text-white"
+      >
+        0
+      </span>
+    </button>
+
+    <aside
+      id="cart-drawer"
+      class="cart-drawer fixed inset-0 z-[60] bg-[rgba(52,44,39,0.32)] transition-opacity duration-300 ease-out"
+      aria-hidden="true"
+    >
+      <div
+        class="cart-panel ml-auto flex h-full w-full max-w-[430px] flex-col bg-white px-6 py-6 shadow-[-20px_0_45px_rgba(52,44,39,0.18)] transition-transform duration-500 ease-out md:px-8"
+      >
+        <div class="flex items-center justify-between border-b border-[#6B625B] pb-5">
+          <h2 class="font-gazpacho text-[19px] font-semibold text-[var(--naskun-dark)]">
+            Keranjang
+            <span id="cart-title-count" class="font-inter text-[16px] font-normal">(0 item)</span>
+          </h2>
+          <button
+            type="button"
+            id="cart-close"
+            aria-label="Tutup keranjang"
+            class="flex h-9 w-9 items-center justify-center text-[32px] leading-none text-[var(--naskun-dark)] transition hover:rotate-90 hover:text-[#E63946]"
+          >
+            ×
+          </button>
+        </div>
+
+        <div id="cart-empty" class="flex flex-1 items-center justify-center text-center">
+          <p class="text-[22px] text-[var(--naskun-dark)]">Keranjang Anda kosong.</p>
+        </div>
+
+        <div id="cart-content" class="hidden flex-1 overflow-y-auto py-6">
+          <div id="cart-items" class="space-y-4"></div>
+        </div>
+
+        <div id="cart-summary" class="hidden border-t border-[#E7DDCF] pt-5">
+          <div class="font-gazpacho font-semibold flex items-center justify-between text-[17px] text-[var(--naskun-dark)]">
+            <span>Total</span>
+            <span id="cart-total" class="font-gazpacho text-[18px] font-semibold text-[#FAB100]">
+              Rp0
+            </span>
+          </div>
+          <button
+            type="button"
+            class="font-gazpacho mt-5 flex h-12 w-full items-center justify-center rounded-full bg-[#E63946] text-[16px] font-medium text-white hover:opacity-90"
+          >
+            Checkout
+          </button>
+        </div>
+      </div>
+    </aside>
+
     <script>
       (() => {
         const qtyInput = document.getElementById("qty");
         const minus = document.getElementById("qty-minus");
         const plus = document.getElementById("qty-plus");
         const productPrice = document.getElementById("product-price");
+        const addToCartButton = document.getElementById("add-to-cart");
+        const floatingCart = document.getElementById("floating-cart");
+        const cartBadge = document.getElementById("cart-badge");
+        const cartDrawer = document.getElementById("cart-drawer");
+        const cartClose = document.getElementById("cart-close");
+        const cartTitleCount = document.getElementById("cart-title-count");
+        const cartEmpty = document.getElementById("cart-empty");
+        const cartContent = document.getElementById("cart-content");
+        const cartItems = document.getElementById("cart-items");
+        const cartSummary = document.getElementById("cart-summary");
+        const cartTotal = document.getElementById("cart-total");
         const addonTrack = document.getElementById("addon-track");
         const addonDots = Array.from(document.querySelectorAll("[data-addon-dot]"));
         const basePrice = 20000;
+        const cart = [];
         let addonPage = 0;
         const addonPageCount = 3;
 
         const formatRupiah = (value) => `Rp${value.toLocaleString("id-ID")}`;
 
+        const getSelectedAddons = () =>
+          Array.from(document.querySelectorAll(".addon-qty"))
+            .map((input) => ({
+              name: input.dataset.name,
+              price: Number(input.dataset.price || "0"),
+              quantity: Number(input.value || "0"),
+            }))
+            .filter((addon) => addon.quantity > 0);
+
+        const getAddonTotal = () =>
+          getSelectedAddons().reduce((total, addon) => total + addon.quantity * addon.price, 0);
+
         const updateTotalPrice = () => {
           if (!productPrice) return;
 
-          const addonTotal = Array.from(document.querySelectorAll(".addon-qty")).reduce(
-            (total, input) => {
-              const quantity = Number(input.value || "0");
-              const price = Number(input.dataset.price || "0");
-              return total + quantity * price;
-            },
-            0,
-          );
+          productPrice.textContent = formatRupiah(basePrice + getAddonTotal());
+        };
 
-          productPrice.textContent = formatRupiah(basePrice + addonTotal);
+        const getCartCount = () => cart.reduce((total, item) => total + item.quantity, 0);
+
+        const getCartTotal = () =>
+          cart.reduce((total, item) => total + item.quantity * item.unitTotal, 0);
+
+        const openCartDrawer = () => {
+          cartDrawer?.classList.add("is-open");
+          cartDrawer?.setAttribute("aria-hidden", "false");
+        };
+
+        const closeCartDrawer = () => {
+          cartDrawer?.classList.remove("is-open");
+          cartDrawer?.setAttribute("aria-hidden", "true");
+        };
+
+        const renderCart = () => {
+          const count = getCartCount();
+
+          if (cartBadge) cartBadge.textContent = String(count);
+          if (cartTitleCount) cartTitleCount.textContent = `(${count} item)`;
+          if (floatingCart) floatingCart.classList.toggle("is-visible", count > 0);
+
+          if (!cartItems || !cartEmpty || !cartContent || !cartSummary || !cartTotal) return;
+
+          cartEmpty.classList.toggle("hidden", count > 0);
+          cartContent.classList.toggle("hidden", count === 0);
+          cartSummary.classList.toggle("hidden", count === 0);
+          cartTotal.textContent = formatRupiah(getCartTotal());
+
+          cartItems.innerHTML = cart
+            .map((item) => {
+              const addonsHtml =
+                item.addons.length > 0
+                  ? `<ul class="mt-3 space-y-1 text-[13px] text-[#6B625B]">${item.addons
+                      .map(
+                        (addon) =>
+                          `<li class="flex justify-between gap-3"><span>${addon.name} x${addon.quantity}</span><span>${formatRupiah(
+                            addon.price * addon.quantity,
+                          )}</span></li>`,
+                      )
+                      .join("")}</ul>`
+                  : `<p class="mt-3 text-[13px] text-[#8E8579]">Tanpa lauk tambahan</p>`;
+
+              return `
+                <article class="border border-[#E7DDCF] bg-white p-4 transition hover:-translate-y-1">
+                  <div class="flex gap-4">
+                    <img
+                      src="./src/styles/asset/font/image/kun1.png"
+                      alt="${item.name}"
+                      class="h-20 w-20 rounded-[8px] object-cover"
+                    />
+                    <div class="min-w-0 flex-1">
+                      <div class="flex items-start justify-between gap-3">
+                        <div>
+                          <h3 class="font-gazpacho text-[14px] font-semibold leading-[1.1] text-[var(--naskun-dark)]">${item.name}</h3>
+                          <p class="mt-1 text-[13px] text-[#6B625B]">Jumlah: ${item.quantity}</p>
+                        </div>
+                        <p class="font-gazpacho shrink-0 text-[14px] font-semibold text-[#FAB100]">${formatRupiah(
+                          item.unitTotal * item.quantity,
+                        )}</p>
+                      </div>
+                      ${addonsHtml}
+                    </div>
+                  </div>
+                </article>
+              `;
+            })
+            .join("");
         };
 
         const updateQuantityState = (input) => {
@@ -562,8 +755,45 @@
           });
         });
 
+        addToCartButton?.addEventListener("click", () => {
+          let productQuantity = Number(qtyInput?.value || "0");
+
+          if (productQuantity === 0 && qtyInput) {
+            productQuantity = 1;
+            qtyInput.value = "1";
+            updateQuantityState(qtyInput);
+          }
+
+          cart.push({
+            id: Date.now(),
+            name: "Nasi Kuning Klasik",
+            quantity: productQuantity,
+            basePrice,
+            addons: getSelectedAddons(),
+            unitTotal: basePrice + getAddonTotal(),
+          });
+
+          renderCart();
+        });
+
+        floatingCart?.addEventListener("click", openCartDrawer);
+        cartClose?.addEventListener("click", closeCartDrawer);
+
+        cartDrawer?.addEventListener("click", (event) => {
+          if (event.target === cartDrawer) {
+            closeCartDrawer();
+          }
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+            closeCartDrawer();
+          }
+        });
+
         updateAddonSlider();
         updateTotalPrice();
+        renderCart();
       })();
     </script>
 
