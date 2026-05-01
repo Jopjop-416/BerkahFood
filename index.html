@@ -64,9 +64,70 @@
       .best-seller-card:focus-visible .best-seller-overlay {
         opacity: 1;
       }
+
+      .auth-toast {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        z-index: 9999;
+        width: min(360px, calc(100vw - 32px));
+        border: 1px solid rgba(52, 44, 39, 0.14);
+        border-left: 5px solid #ffb703;
+        border-radius: 18px;
+        background: #fffbf2;
+        box-shadow: 0 18px 50px rgba(52, 44, 39, 0.18);
+        color: #342c27;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(120%);
+        transition:
+          opacity 300ms ease,
+          transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .auth-toast.is-visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .auth-toast.is-leaving {
+        opacity: 0;
+        transform: translateX(-28px);
+      }
+
+      .auth-toast.is-success {
+        border-left-color: #ffb703;
+      }
+
+      .auth-toast.is-error {
+        border-left-color: #e63946;
+      }
+
+      .auth-toast-title {
+        font-family: "Gazpacho", Georgia, serif;
+      }
+
+      @media (max-width: 640px) {
+        .auth-toast {
+          top: 16px;
+          right: 16px;
+          left: 16px;
+          width: auto;
+        }
+      }
     </style>
   </head>
   <body class="font-inter bg-[var(--naskun-cream)] text-[var(--naskun-dark)]">
+    <!-- ===== Notifikasi Login ===== -->
+    <div id="authToast" class="auth-toast" role="status" aria-live="polite">
+      <div class="px-5 py-4">
+        <p id="toastTitle" class="auth-toast-title text-[18px] font-bold">
+          Notifikasi
+        </p>
+        <p id="toastMessage" class="mt-1 text-[13px] leading-[1.45]"></p>
+      </div>
+    </div>
+
     
     <!-- ===== 1 ===== -->
     <section class="pt-[96px]">
@@ -87,10 +148,10 @@
             <a href="#about" class="transition hover:opacity-70">Review</a>
             <a href="#about" class="transition hover:opacity-70">Keranjang</a>
             <a
-              href="#contact"
+              href="./login.html"
               class="rounded-full bg-[#6b625b] px-7 py-3 text-white transition hover:bg-[var(--naskun-dark)]"
             >
-              Hubungi Kami
+              Sign In
             </a>
           </div>
         </nav>
@@ -690,5 +751,49 @@
         </div>
       </div>
     </footer>
+    <!-- ===== Logika Notifikasi Login ===== -->
+    <script>
+      const pendingToastKey = 'altitude_pending_toast';
+      const authToast = document.getElementById('authToast');
+      const toastTitle = document.getElementById('toastTitle');
+      const toastMessage = document.getElementById('toastMessage');
+      let toastTimer;
+
+      function showToast(message, type, duration = 4000) {
+        const title = type === 'success' ? 'Berhasil' : 'Perlu dicek';
+
+        clearTimeout(toastTimer);
+        toastTitle.textContent = title;
+        toastMessage.textContent = message;
+        authToast.className = `auth-toast is-${type}`;
+        authToast.offsetHeight;
+        authToast.classList.add('is-visible');
+
+        toastTimer = setTimeout(function () {
+          authToast.classList.add('is-leaving');
+          authToast.classList.remove('is-visible');
+        }, duration);
+      }
+
+      function showPendingToast() {
+        const pendingToast = sessionStorage.getItem(pendingToastKey);
+
+        if (!pendingToast) {
+          return;
+        }
+
+        try {
+          const toast = JSON.parse(pendingToast);
+          showToast(toast.message, toast.type);
+        } catch (error) {
+          sessionStorage.removeItem(pendingToastKey);
+          return;
+        }
+
+        sessionStorage.removeItem(pendingToastKey);
+      }
+
+      showPendingToast();
+    </script>
   </body>
 </html>

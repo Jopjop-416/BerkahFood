@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - AltitudeTrails</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @font-face {
+        font-family: 'Gazpacho';
+        src: url('./src/styles/asset/font/Gazpacho%20Regular.ttf')
+          format('truetype');
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'Gazpacho';
+        src: url('./src/styles/asset/font/Gazpacho%20Bold.ttf')
+          format('truetype');
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      * {
+        font-family: 'Poppins', sans-serif;
+      }
+
+      .font-gazpacho {
+        font-family: 'Gazpacho', Georgia, serif;
+      }
+
+      .auth-toast {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        z-index: 9999;
+        width: min(360px, calc(100vw - 32px));
+        border: 1px solid rgba(52, 44, 39, 0.14);
+        border-left: 5px solid #ffb703;
+        border-radius: 18px;
+        background: #fffbf2;
+        box-shadow: 0 18px 50px rgba(52, 44, 39, 0.18);
+        color: #342c27;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(120%);
+        transition:
+          opacity 300ms ease,
+          transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .auth-toast.is-visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .auth-toast.is-leaving {
+        opacity: 0;
+        transform: translateX(-28px);
+      }
+
+      .auth-toast.is-success {
+        border-left-color: #ffb703;
+      }
+
+      .auth-toast.is-error {
+        border-left-color: #e63946;
+      }
+
+      .auth-toast-title {
+        font-family: 'Gazpacho', Georgia, serif;
+      }
+
+      @media (max-width: 640px) {
+        .auth-toast {
+          top: 16px;
+          right: 16px;
+          left: 16px;
+          width: auto;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-white text-gray-900">
+    <!-- ===== Notifikasi Login ===== -->
+    <div id="authToast" class="auth-toast" role="status" aria-live="polite">
+      <div class="px-5 py-4">
+        <p id="toastTitle" class="auth-toast-title text-[18px] font-bold">
+          Notifikasi
+        </p>
+        <p id="toastMessage" class="mt-1 text-[13px] leading-[1.45]"></p>
+      </div>
+    </div>
+
+    <!-- ===== Layout Utama ===== -->
+    <main class="min-h-screen flex">
+      <!-- ===== Panel Visual Kiri ===== -->
+      <div class="relative hidden lg:flex lg:w-1/2">
+        <img
+          src="./src/styles/asset/font/image/bg3.png"
+          alt="Mountain"
+          class="h-full w-full object-cover"
+        />
+        <div class="absolute inset-0 flex flex-col justify-between p-8 text-white">
+          <div class="flex items-center gap-2"></div>
+        </div>
+      </div>
+
+      <!-- ===== Panel Form Login ===== -->
+      <div class="flex w-full items-center justify-center p-7 lg:w-1/2">
+        <div class="w-full max-w-md">
+          <!-- ===== Branding ===== -->
+          <a href="index.html" class="inline-block">
+            <img
+              src="./src/styles/asset/font/image/logo2.png"
+              alt="Logo"
+              class="h-12 w-auto object-contain"
+            />
+          </a>
+
+          <!-- ===== Judul Halaman ===== -->
+          <h2 class="mt-1 mb-2 text-3xl font-bold text-[#342c27] font-gazpacho">
+            Welcome Back
+          </h2>
+          <p class="mb-10 text-[14px] text-[#342c27]">
+            Ayoo login untuk melihat pilihan Nasi Kuning dari restoran kami.
+          </p>
+
+          <!-- ===== Form Login ===== -->
+          <form id="loginForm" class="space-y-4">
+            <!-- ===== Input Email ===== -->
+            <div>
+              <label for="email" class="mt-3 mb-1 block text-[13px] font-medium">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                required
+                autocomplete="email"
+                class="mb-2 w-full rounded-full border px-4 py-3 text-[13px] focus:outline-none focus:ring-1 focus:ring-black"
+                placeholder="you@example.com"
+              />
+            </div>
+
+            <!-- ===== Input Password ===== -->
+            <div>
+              <label
+                for="password"
+                class="mb-1 block text-[13px] font-medium"
+              >
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                required
+                minlength="8"
+                autocomplete="current-password"
+                class="w-full rounded-full border px-4 py-3 text-[13px] focus:outline-none focus:ring-1 focus:ring-black"
+                placeholder="********"
+              />
+            </div>
+
+            <!-- ===== Opsi Tambahan ===== -->
+            <div class="flex items-center justify-between text-sm">
+              <label class="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="remember"
+                  class="h-4 w-4 rounded-md accent-gray-900"
+                />
+                <span class="text-[13px]">Remember me</span>
+              </label>
+              <button
+                type="button"
+                id="forgotPasswordButton"
+                class="text-[13px] text-gray-700"
+              >
+                Forgot password?
+                <span class="text-[13px] font-semibold text-black">
+                  Lihat bantuan
+                </span>
+              </button>
+            </div>
+
+            <!-- ===== Tombol Login ===== -->
+            <button
+              type="submit"
+              id="loginSubmitButton"
+              class="group relative w-full overflow-hidden rounded-full bg-[#342c27] py-3 font-medium text-white transition hover:bg-black hover:text-white"
+            >
+              <p class="relative h-6 overflow-hidden">
+                <span
+                  class="block transition-transform duration-300 group-hover:-translate-y-full"
+                >
+                  Sign in
+                </span>
+                <span
+                  class="absolute top-full left-1/2 block w-full -translate-x-1/2 transition-transform duration-300 group-hover:-translate-y-full"
+                >
+                  Sign in
+                </span>
+              </p>
+            </button>
+          </form>
+
+          <!-- ===== Navigasi ke Register ===== -->
+          <p class="mt-3 text-center text-[13px]">
+            Don't have an account?
+            <a href="./register.html" class="text-[14px] font-semibold text-black">
+              Sign up
+            </a>
+          </p>
+
+          <!-- ===== Logika Login ===== -->
+          <script>
+            const STORAGE_KEYS = {
+              registeredUser: 'altitude_registered_user',
+              activeUser: 'altitude_user',
+              rememberedEmail: 'altitude_remembered_email',
+              pendingToast: 'altitude_pending_toast',
+            };
+
+            const loginForm = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const rememberInput = document.getElementById('remember');
+            const loginSubmitButton = document.getElementById(
+              'loginSubmitButton',
+            );
+            const forgotPasswordButton = document.getElementById(
+              'forgotPasswordButton',
+            );
+            const authToast = document.getElementById('authToast');
+            const toastTitle = document.getElementById('toastTitle');
+            const toastMessage = document.getElementById('toastMessage');
+            let toastTimer;
+
+            function showToast(message, type, duration = 4000) {
+              const title = type === 'success' ? 'Berhasil' : 'Perlu dicek';
+
+              clearTimeout(toastTimer);
+              toastTitle.textContent = title;
+              toastMessage.textContent = message;
+              authToast.className = `auth-toast is-${type}`;
+              authToast.offsetHeight;
+              authToast.classList.add('is-visible');
+
+              toastTimer = setTimeout(function () {
+                authToast.classList.add('is-leaving');
+                authToast.classList.remove('is-visible');
+              }, duration);
+            }
+
+            function showPendingToast() {
+              const pendingToast = sessionStorage.getItem(
+                STORAGE_KEYS.pendingToast,
+              );
+
+              if (!pendingToast) {
+                return;
+              }
+
+              try {
+                const toast = JSON.parse(pendingToast);
+                showToast(toast.message, toast.type);
+              } catch (error) {
+                sessionStorage.removeItem(STORAGE_KEYS.pendingToast);
+                return;
+              }
+
+              sessionStorage.removeItem(STORAGE_KEYS.pendingToast);
+            }
+
+            function getStoredUser(key) {
+              const value = localStorage.getItem(key);
+
+              if (!value) {
+                return null;
+              }
+
+              try {
+                return JSON.parse(value);
+              } catch (error) {
+                localStorage.removeItem(key);
+                return null;
+              }
+            }
+
+            function restoreRememberedEmail() {
+              const rememberedEmail = localStorage.getItem(
+                STORAGE_KEYS.rememberedEmail,
+              );
+
+              if (!rememberedEmail) {
+                return;
+              }
+
+              emailInput.value = rememberedEmail;
+              rememberInput.checked = true;
+            }
+
+            forgotPasswordButton.addEventListener('click', function () {
+              const registeredUser = getStoredUser(STORAGE_KEYS.registeredUser);
+
+              if (!registeredUser) {
+                showToast(
+                  'Akun belum ditemukan. Silakan register terlebih dahulu.',
+                  'error',
+                );
+                return;
+              }
+
+              showToast(
+                `Gunakan email ${registeredUser.email} untuk login. Jika lupa password, silakan daftar ulang sementara pada versi lokal ini.`,
+                'success',
+              );
+            });
+
+            loginForm.addEventListener('submit', function (event) {
+              event.preventDefault();
+
+              const registeredUser = getStoredUser(STORAGE_KEYS.registeredUser);
+              const email = emailInput.value.trim().toLowerCase();
+              const password = passwordInput.value;
+
+              if (!registeredUser) {
+                showToast(
+                  'Belum ada akun terdaftar. Silakan buat akun terlebih dahulu.',
+                  'error',
+                );
+                return;
+              }
+
+              if (
+                email !== registeredUser.email ||
+                password !== registeredUser.password
+              ) {
+                showToast('Email atau password tidak sesuai.', 'error');
+                return;
+              }
+
+              loginSubmitButton.disabled = true;
+              loginSubmitButton.classList.add('cursor-not-allowed', 'opacity-80');
+
+              const activeUser = {
+                username: registeredUser.username,
+                email: registeredUser.email,
+                loginAt: new Date().toISOString(),
+              };
+
+              localStorage.setItem(
+                STORAGE_KEYS.activeUser,
+                JSON.stringify(activeUser),
+              );
+
+              if (rememberInput.checked) {
+                localStorage.setItem(STORAGE_KEYS.rememberedEmail, email);
+              } else {
+                localStorage.removeItem(STORAGE_KEYS.rememberedEmail);
+              }
+
+              sessionStorage.setItem(
+                STORAGE_KEYS.pendingToast,
+                JSON.stringify({
+                  message: 'Login berhasil. Selamat datang kembali.',
+                  type: 'success',
+                }),
+              );
+
+              window.location.href = './index.html';
+            });
+
+            restoreRememberedEmail();
+            showPendingToast();
+          </script>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
