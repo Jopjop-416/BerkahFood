@@ -193,20 +193,9 @@
             <button
               type="submit"
               id="loginSubmitButton"
-              class="group relative w-full overflow-hidden rounded-full bg-[#342c27] py-3 font-medium text-white transition hover:bg-black hover:text-white"
+              class="font-gazpacho inline-flex w-full items-center justify-center rounded-full border border-transparent bg-[#342c27] px-7 py-3 text-[14px] font-semibold text-white transition hover:border-black border-[3px] hover:bg-white hover:text-[#342c27]"
             >
-              <p class="relative h-6 overflow-hidden">
-                <span
-                  class="block transition-transform duration-300 group-hover:-translate-y-full"
-                >
-                  Sign in
-                </span>
-                <span
-                  class="absolute top-full left-1/2 block w-full -translate-x-1/2 transition-transform duration-300 group-hover:-translate-y-full"
-                >
-                  Sign in
-                </span>
-              </p>
+              Sign in
             </button>
           </form>
 
@@ -242,7 +231,7 @@
             const toastMessage = document.getElementById('toastMessage');
             let toastTimer;
 
-            function showToast(message, type, duration = 4000) {
+            function showToast(message, type, duration = 2000) {
               const title = type === 'success' ? 'Berhasil' : 'Perlu dicek';
 
               clearTimeout(toastTimer);
