@@ -72,6 +72,7 @@
         --float-x: 0px;
         --float-y: 0px;
         --press-z: 0px;
+        cursor: pointer;
         transform:
           perspective(900px)
           translate3d(var(--float-x), var(--float-y), var(--press-z))
@@ -89,14 +90,86 @@
         box-shadow: 0 28px 70px rgba(52, 44, 39, 0.16);
       }
 
+      .review-card:focus-visible {
+        outline: 2px solid #342c27;
+        outline-offset: 6px;
+      }
+
       .review-card > * {
         transform: translateZ(32px);
+      }
+
+      /* ===== Modal Detail Ulasan ===== */
+      .review-modal {
+        --modal-origin-x: 50%;
+        --modal-origin-y: 50%;
+        position: fixed;
+        inset: 0;
+        z-index: 9998;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(52, 44, 39, 0.28);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 300ms ease;
+      }
+
+      .review-modal.is-open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .review-modal-panel {
+        --modal-tilt-x: 0deg;
+        --modal-tilt-y: 0deg;
+        --modal-float-x: 0px;
+        --modal-float-y: 0px;
+        --modal-press-z: 0px;
+        width: min(620px, 100%);
+        border: 1px solid rgba(52, 44, 39, 0.16);
+        background: #fffbf2;
+        box-shadow: 0 30px 90px rgba(52, 44, 39, 0.24);
+        opacity: 0;
+        transform:
+          perspective(1000px)
+          translate3d(var(--modal-float-x), calc(22px + var(--modal-float-y)), var(--modal-press-z))
+          rotateX(var(--modal-tilt-x))
+          rotateY(var(--modal-tilt-y))
+          scale(0.82);
+        transform-origin: var(--modal-origin-x) var(--modal-origin-y);
+        transform-style: preserve-3d;
+        will-change: transform, box-shadow;
+        transition:
+          opacity 300ms ease,
+          transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .review-modal.is-open .review-modal-panel {
+        opacity: 1;
+        transform:
+          perspective(1000px)
+          translate3d(var(--modal-float-x), var(--modal-float-y), var(--modal-press-z))
+          rotateX(var(--modal-tilt-x))
+          rotateY(var(--modal-tilt-y))
+          scale(1);
+      }
+
+      .review-modal.is-open .review-modal-panel:hover {
+        box-shadow: 0 38px 100px rgba(52, 44, 39, 0.3);
+      }
+
+      .review-modal-panel > * {
+        transform: translateZ(34px);
       }
 
       @media (prefers-reduced-motion: reduce) {
         .review-card,
         .review-card:hover,
-        .review-card:focus-visible {
+        .review-card:focus-visible,
+        .review-modal,
+        .review-modal-panel {
           transform: none;
           transition: none;
         }
@@ -572,7 +645,7 @@
         <!-- ===== Grid Card Ulasan ===== -->
         <div class="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
           <!-- ===== Card Ulasan 1 ===== -->
-          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
+          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]" role="button" tabindex="0">
             <div class="text-[24px] leading-none tracking-[0.08em] text-[#FB8500]">★★★★★</div>
             <p class="mt-6 text-[14px] leading-[1.45] text-[var(--naskun-dark)]">
               "Nasi kuning paling otentik yang pernah saya coba. Rempah-rempahnya meresap sempurna
@@ -584,7 +657,7 @@
           </article>
 
           <!-- ===== Card Ulasan 2 ===== -->
-          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
+          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]" role="button" tabindex="0">
             <div class="text-[24px] leading-none tracking-[0.08em] text-[#FB8500]">★★★★★</div>
             <p class="mt-6 text-[14px] leading-[1.45] text-[var(--naskun-dark)]">
               "Layanan catering untuk kantor kami selalu sukses berkat Nasi Kuning Lezat.
@@ -596,7 +669,7 @@
           </article>
 
           <!-- ===== Card Ulasan 3 ===== -->
-          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
+          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]" role="button" tabindex="0">
             <div class="text-[24px] leading-none tracking-[0.08em] text-[#FB8500]">★★★★★</div>
             <p class="mt-6 text-[14px] leading-[1.45] text-[var(--naskun-dark)]">
               "Sangat merekomendasikan paket makan siang mereka. Tetap mengutamakan kesehatan tanpa
@@ -608,7 +681,7 @@
           </article>
 
           <!-- ===== Card Ulasan 4 ===== -->
-          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
+          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]" role="button" tabindex="0">
             <div class="text-[24px] leading-none tracking-[0.08em] text-[#FB8500]">★★★★★</div>
             <p class="mt-6 text-[14px] leading-[1.45] text-[var(--naskun-dark)]">
               "Sangat merekomendasikan paket makan siang mereka. Tetap mengutamakan kesehatan tanpa
@@ -620,7 +693,7 @@
           </article>
 
           <!-- ===== Card Ulasan 5 ===== -->
-          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
+          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]" role="button" tabindex="0">
             <div class="text-[24px] leading-none tracking-[0.08em] text-[#FB8500]">★★★★★</div>
             <p class="mt-6 text-[14px] leading-[1.45] text-[var(--naskun-dark)]">
               "Sangat merekomendasikan paket makan siang mereka. Tetap mengutamakan kesehatan tanpa
@@ -632,7 +705,7 @@
           </article>
 
           <!-- ===== Card Ulasan 6 ===== -->
-          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
+          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]" role="button" tabindex="0">
             <div class="text-[24px] leading-none tracking-[0.08em] text-[#FB8500]">★★★★★</div>
             <p class="mt-6 text-[14px] leading-[1.45] text-[var(--naskun-dark)]">
               "Sangat merekomendasikan paket makan siang mereka. Tetap mengutamakan kesehatan tanpa
@@ -645,6 +718,46 @@
         </div>
       </div>
     </section>
+
+    <!-- ===== Modal Detail Ulasan ===== -->
+    <div
+      id="reviewModal"
+      class="review-modal"
+      aria-hidden="true"
+    >
+      <div
+        class="review-modal-panel px-7 py-8 text-center md:px-10 md:py-10"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="reviewModalName"
+      >
+        <!-- ===== Tombol Tutup Modal Ulasan ===== -->
+        <div class="flex justify-end">
+          <button
+            type="button"
+            id="reviewModalClose"
+            class="flex h-9 w-9 items-center justify-center text-[32px] leading-none text-[var(--naskun-dark)] transition hover:rotate-90 hover:text-[#E63946]"
+            aria-label="Tutup detail ulasan"
+          >
+            &times;
+          </button>
+        </div>
+
+        <!-- ===== Isi Modal Ulasan ===== -->
+        <div
+          id="reviewModalStars"
+          class="mt-2 text-[28px] leading-none tracking-[0.08em] text-[#FB8500]"
+        ></div>
+        <p
+          id="reviewModalText"
+          class="mx-auto mt-7 max-w-[500px] text-[16px] leading-[1.65] text-[var(--naskun-dark)]"
+        ></p>
+        <h3
+          id="reviewModalName"
+          class="font-gazpacho mt-8 text-[28px] font-semibold text-[var(--naskun-dark)]"
+        ></h3>
+      </div>
+    </div>
 
     <!-- ===== 7 ===== -->
     <section id="contact" class="bg-[#FFFBF2] px-6 py-16 md:px-10 md:py-20 lg:px-16 lg:py-30">
@@ -797,8 +910,60 @@
       </div>
     </footer>
     
-    <!-- ===== Efek Tilt Card Ulasan ===== -->
+    <!-- ===== Efek Tilt dan Modal Card Ulasan ===== -->
     <script>
+      const reviewModal = document.getElementById('reviewModal');
+      const reviewModalPanel = reviewModal.querySelector('.review-modal-panel');
+      const reviewModalClose = document.getElementById('reviewModalClose');
+      const reviewModalStars = document.getElementById('reviewModalStars');
+      const reviewModalText = document.getElementById('reviewModalText');
+      const reviewModalName = document.getElementById('reviewModalName');
+
+      function resetReviewCard(card) {
+        card.style.setProperty('--tilt-x', '0deg');
+        card.style.setProperty('--tilt-y', '0deg');
+        card.style.setProperty('--float-x', '0px');
+        card.style.setProperty('--float-y', '0px');
+        card.style.setProperty('--press-z', '0px');
+      }
+
+      function resetReviewModalTilt() {
+        reviewModalPanel.style.setProperty('--modal-tilt-x', '0deg');
+        reviewModalPanel.style.setProperty('--modal-tilt-y', '0deg');
+        reviewModalPanel.style.setProperty('--modal-float-x', '0px');
+        reviewModalPanel.style.setProperty('--modal-float-y', '0px');
+        reviewModalPanel.style.setProperty('--modal-press-z', '0px');
+      }
+
+      function openReviewModal(card) {
+        const rect = card.getBoundingClientRect();
+        const originX = ((rect.left + rect.width / 2) / window.innerWidth) * 100;
+        const originY = ((rect.top + rect.height / 2) / window.innerHeight) * 100;
+
+        reviewModalStars.textContent = card.querySelector('div').textContent.trim();
+        reviewModalText.textContent = card.querySelector('p').textContent.trim();
+        reviewModalName.textContent = card.querySelector('h3').textContent.trim();
+        reviewModalPanel.style.setProperty(
+          '--modal-origin-x',
+          `${originX}%`,
+        );
+        reviewModalPanel.style.setProperty(
+          '--modal-origin-y',
+          `${originY}%`,
+        );
+        reviewModal.classList.add('is-open');
+        reviewModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('overflow-hidden');
+        reviewModalClose.focus();
+      }
+
+      function closeReviewModal() {
+        reviewModal.classList.remove('is-open');
+        reviewModal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('overflow-hidden');
+        resetReviewModalTilt();
+      }
+
       document.querySelectorAll('.review-card').forEach(function (card) {
         card.addEventListener('pointermove', function (event) {
           const rect = card.getBoundingClientRect();
@@ -813,12 +978,49 @@
         });
 
         card.addEventListener('pointerleave', function () {
-          card.style.setProperty('--tilt-x', '0deg');
-          card.style.setProperty('--tilt-y', '0deg');
-          card.style.setProperty('--float-x', '0px');
-          card.style.setProperty('--float-y', '0px');
-          card.style.setProperty('--press-z', '0px');
+          resetReviewCard(card);
         });
+
+        card.addEventListener('click', function () {
+          resetReviewCard(card);
+          openReviewModal(card);
+        });
+
+        card.addEventListener('keydown', function (event) {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            resetReviewCard(card);
+            openReviewModal(card);
+          }
+        });
+      });
+
+      reviewModalClose.addEventListener('click', closeReviewModal);
+
+      reviewModalPanel.addEventListener('pointermove', function (event) {
+        const rect = reviewModalPanel.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+        reviewModalPanel.style.setProperty('--modal-tilt-x', `${y * -8}deg`);
+        reviewModalPanel.style.setProperty('--modal-tilt-y', `${x * 8}deg`);
+        reviewModalPanel.style.setProperty('--modal-float-x', `${x * -7}px`);
+        reviewModalPanel.style.setProperty('--modal-float-y', `${y * -7}px`);
+        reviewModalPanel.style.setProperty('--modal-press-z', '-10px');
+      });
+
+      reviewModalPanel.addEventListener('pointerleave', resetReviewModalTilt);
+
+      reviewModal.addEventListener('click', function (event) {
+        if (event.target === reviewModal) {
+          closeReviewModal();
+        }
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && reviewModal.classList.contains('is-open')) {
+          closeReviewModal();
+        }
       });
     </script>
 
