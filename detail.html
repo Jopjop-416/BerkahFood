@@ -40,6 +40,23 @@
         font-family: "Inter", sans-serif;
       }
 
+      /* ===== Auth Navbar Avatar ===== */
+      .auth-menu {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(10px) scale(0.96);
+        transform-origin: top right;
+        transition:
+          opacity 220ms ease,
+          transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .auth-menu.is-open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0) scale(1);
+      }
+
       .detail-panel summary::-webkit-details-marker {
         display: none;
       }
@@ -103,12 +120,8 @@
             <a href="#about" class="transition hover:opacity-70">About Us</a>
             <a href="#about" class="transition hover:opacity-70">Review</a>
             <a href="#about" class="transition hover:opacity-70">Keranjang</a>
-            <a
-              href="./login.html"
-              class="inline-flex items-center justify-center rounded-full border border-transparent bg-[#342c27] px-7 py-3 text-[14px] font-medium text-white transition hover:border-black hover:bg-[#f5f2ec] hover:text-[#342c27]"
-            >
-              Sign In
-            </a>
+            <!-- ===== Auth Navbar ===== -->
+            <div id="authNavbar" class="relative"></div>
           </div>
         </nav>
       </div>
@@ -904,5 +917,147 @@
         </div>
       </div>
     </footer>
+    <!-- ===== Logika Auth Navbar ===== -->
+    <script>
+      (function () {
+        const activeUserKey = 'altitude_user';
+        const authNavbar = document.getElementById('authNavbar');
+
+        if (!authNavbar) {
+          return;
+        }
+
+        function getActiveUser() {
+          const value = localStorage.getItem(activeUserKey);
+
+          if (!value) {
+            return null;
+          }
+
+          try {
+            return JSON.parse(value);
+          } catch (error) {
+            localStorage.removeItem(activeUserKey);
+            return null;
+          }
+        }
+
+        function getUserInitial(user) {
+          const source = user.username || user.email || 'U';
+          return source.trim().charAt(0).toUpperCase();
+        }
+
+        function escapeHtml(value) {
+          return String(value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+        }
+
+        function renderSignIn() {
+          authNavbar.innerHTML = `
+            <a
+              href="./login.html"
+              class="inline-flex items-center justify-center rounded-full border border-transparent bg-[#342c27] px-7 py-3 text-[14px] font-medium text-white transition hover:border-black hover:bg-[#f5f2ec] hover:text-[#342c27]"
+            >
+              Sign In
+            </a>
+          `;
+        }
+
+        function renderAvatar(user) {
+          const username = escapeHtml(user.username || 'Pengguna');
+          const email = escapeHtml(user.email || 'Email belum tersedia');
+
+          authNavbar.innerHTML = `
+            <button
+              type="button"
+              id="authAvatarButton"
+              class="flex h-12 w-12 items-center justify-center rounded-full border border-[#342c27] bg-transparent p-1 transition hover:scale-105"
+              aria-label="Buka menu akun"
+              aria-expanded="false"
+            >
+              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-[#342c27] text-[15px] font-semibold text-white">
+                ${getUserInitial(user)}
+              </span>
+            </button>
+
+            <div
+              id="authMenu"
+              class="auth-menu absolute right-0 top-14 w-[240px] border border-black/10 bg-[#FFFBF2] p-4 text-left shadow-[0_20px_50px_rgba(52,44,39,0.18)]"
+            >
+              <p class="font-gazpacho text-[19px] font-semibold text-[#342c27]">${username}</p>
+              <p class="mt-1 truncate text-[12px] text-[#6b625b]">${email}</p>
+
+              <div id="authProfileDetail" class="mt-4 hidden border-t border-black/10 pt-3 text-[12px] leading-[1.5] text-[#5A4B43]">
+                Anda sedang login sebagai ${username}. Data akun ini disimpan sementara di browser.
+              </div>
+
+              <div class="mt-4 grid gap-2 border-t border-black/10 pt-4">
+                <button
+                  type="button"
+                  id="authProfileButton"
+                  class="rounded-full border border-black bg-[#f5f2ec] px-4 py-2 text-[13px] font-medium text-[#342c27] transition hover:bg-[#342c27] hover:text-white"
+                >
+                  Profile
+                </button>
+                <button
+                  type="button"
+                  id="authLogoutButton"
+                  class="rounded-full bg-[#E63946] px-4 py-2 text-[13px] font-medium text-white transition hover:bg-[#342c27]"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          `;
+
+          const avatarButton = document.getElementById('authAvatarButton');
+          const authMenu = document.getElementById('authMenu');
+          const profileButton = document.getElementById('authProfileButton');
+          const profileDetail = document.getElementById('authProfileDetail');
+          const logoutButton = document.getElementById('authLogoutButton');
+
+          avatarButton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            const isOpen = authMenu.classList.toggle('is-open');
+            avatarButton.setAttribute('aria-expanded', String(isOpen));
+          });
+
+          profileButton.addEventListener('click', function () {
+            profileDetail.classList.toggle('hidden');
+          });
+
+          logoutButton.addEventListener('click', function () {
+            localStorage.removeItem(activeUserKey);
+            renderSignIn();
+          });
+
+          document.addEventListener('click', function (event) {
+            if (!authNavbar.contains(event.target)) {
+              authMenu.classList.remove('is-open');
+              avatarButton.setAttribute('aria-expanded', 'false');
+            }
+          });
+
+          document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+              authMenu.classList.remove('is-open');
+              avatarButton.setAttribute('aria-expanded', 'false');
+            }
+          });
+        }
+
+        const activeUser = getActiveUser();
+
+        if (activeUser) {
+          renderAvatar(activeUser);
+        } else {
+          renderSignIn();
+        }
+      })();
+    </script>
   </body>
 </html>
