@@ -65,6 +65,43 @@
         opacity: 1;
       }
 
+      /* ===== Efek Tilt Card Ulasan ===== */
+      .review-card {
+        --tilt-x: 0deg;
+        --tilt-y: 0deg;
+        --float-x: 0px;
+        --float-y: 0px;
+        --press-z: 0px;
+        transform:
+          perspective(900px)
+          translate3d(var(--float-x), var(--float-y), var(--press-z))
+          rotateX(var(--tilt-x))
+          rotateY(var(--tilt-y));
+        transform-style: preserve-3d;
+        will-change: transform, box-shadow;
+        transition:
+          transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+          box-shadow 420ms ease;
+      }
+
+      .review-card:hover,
+      .review-card:focus-visible {
+        box-shadow: 0 28px 70px rgba(52, 44, 39, 0.16);
+      }
+
+      .review-card > * {
+        transform: translateZ(32px);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .review-card,
+        .review-card:hover,
+        .review-card:focus-visible {
+          transform: none;
+          transition: none;
+        }
+      }
+
       .auth-toast {
         position: fixed;
         top: 60px;
@@ -524,15 +561,18 @@
       </div>
     </section>
 
-    <!-- ===== 6 ===== -->
+    <!-- ===== Ulasan Pelanggan ===== -->
     <section class="bg-[#F8F5F5] px-6 py-18 md:px-10 md:py-22 lg:px-16 lg:py-24">
       <div class="mx-auto max-w-[1220px]">
+        <!-- ===== Judul Ulasan ===== -->
         <h2 class="font-gazpacho text-center text-[20px] font-semibold leading-[0.95] text-[var(--naskun-dark)] md:text-[68px] lg:text-[48]">
           Ulasan Pelanggan
         </h2>
 
+        <!-- ===== Grid Card Ulasan ===== -->
         <div class="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-          <article class="bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
+          <!-- ===== Card Ulasan 1 ===== -->
+          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
             <div class="text-[24px] leading-none tracking-[0.08em] text-[#FB8500]">★★★★★</div>
             <p class="mt-6 text-[14px] leading-[1.45] text-[var(--naskun-dark)]">
               "Nasi kuning paling otentik yang pernah saya coba. Rempah-rempahnya meresap sempurna
@@ -543,7 +583,8 @@
             </h3>
           </article>
 
-          <article class="bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
+          <!-- ===== Card Ulasan 2 ===== -->
+          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
             <div class="text-[24px] leading-none tracking-[0.08em] text-[#FB8500]">★★★★★</div>
             <p class="mt-6 text-[14px] leading-[1.45] text-[var(--naskun-dark)]">
               "Layanan catering untuk kantor kami selalu sukses berkat Nasi Kuning Lezat.
@@ -554,7 +595,8 @@
             </h3>
           </article>
 
-          <article class="bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
+          <!-- ===== Card Ulasan 3 ===== -->
+          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
             <div class="text-[24px] leading-none tracking-[0.08em] text-[#FB8500]">★★★★★</div>
             <p class="mt-6 text-[14px] leading-[1.45] text-[var(--naskun-dark)]">
               "Sangat merekomendasikan paket makan siang mereka. Tetap mengutamakan kesehatan tanpa
@@ -565,7 +607,8 @@
             </h3>
           </article>
 
-          <article class="bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
+          <!-- ===== Card Ulasan 4 ===== -->
+          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
             <div class="text-[24px] leading-none tracking-[0.08em] text-[#FB8500]">★★★★★</div>
             <p class="mt-6 text-[14px] leading-[1.45] text-[var(--naskun-dark)]">
               "Sangat merekomendasikan paket makan siang mereka. Tetap mengutamakan kesehatan tanpa
@@ -576,7 +619,8 @@
             </h3>
           </article>
 
-          <article class="bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
+          <!-- ===== Card Ulasan 5 ===== -->
+          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
             <div class="text-[24px] leading-none tracking-[0.08em] text-[#FB8500]">★★★★★</div>
             <p class="mt-6 text-[14px] leading-[1.45] text-[var(--naskun-dark)]">
               "Sangat merekomendasikan paket makan siang mereka. Tetap mengutamakan kesehatan tanpa
@@ -587,7 +631,8 @@
             </h3>
           </article>
 
-          <article class="bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
+          <!-- ===== Card Ulasan 6 ===== -->
+          <article class="review-card bg-[#FFFBF2] px-6 py-8 text-center shadow-[0_18px_40px_rgba(52,44,39,0.08)]">
             <div class="text-[24px] leading-none tracking-[0.08em] text-[#FB8500]">★★★★★</div>
             <p class="mt-6 text-[14px] leading-[1.45] text-[var(--naskun-dark)]">
               "Sangat merekomendasikan paket makan siang mereka. Tetap mengutamakan kesehatan tanpa
@@ -751,6 +796,32 @@
         </div>
       </div>
     </footer>
+    
+    <!-- ===== Efek Tilt Card Ulasan ===== -->
+    <script>
+      document.querySelectorAll('.review-card').forEach(function (card) {
+        card.addEventListener('pointermove', function (event) {
+          const rect = card.getBoundingClientRect();
+          const x = (event.clientX - rect.left) / rect.width - 0.5;
+          const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+          card.style.setProperty('--tilt-x', `${y * -12}deg`);
+          card.style.setProperty('--tilt-y', `${x * 12}deg`);
+          card.style.setProperty('--float-x', `${x * -8}px`);
+          card.style.setProperty('--float-y', `${y * -8}px`);
+          card.style.setProperty('--press-z', '-14px');
+        });
+
+        card.addEventListener('pointerleave', function () {
+          card.style.setProperty('--tilt-x', '0deg');
+          card.style.setProperty('--tilt-y', '0deg');
+          card.style.setProperty('--float-x', '0px');
+          card.style.setProperty('--float-y', '0px');
+          card.style.setProperty('--press-z', '0px');
+        });
+      });
+    </script>
+
     <!-- ===== Logika Notifikasi Login ===== -->
     <script>
       const pendingToastKey = 'altitude_pending_toast';
